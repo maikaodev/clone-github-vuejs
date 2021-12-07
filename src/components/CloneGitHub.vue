@@ -1,10 +1,8 @@
 <template>
-  <div class="container">
+  <div class="container d-flex flex-column">
     <!-- HEADER -->
-
     <header class="container d-flex flex-column align-items-center">
       <!-- Icon github -->
-
       <div
         class="GitHubHome d-flex justify-content-between align-items-center mt-2"
       >
@@ -41,7 +39,7 @@
           Beginner in programming, focused on Front-End.
         </span>
         <div class="d-grid gap-2">
-          <button class="">Edit Profile</button>
+          <button>Edit Profile</button>
         </div>
       </div>
 
@@ -49,7 +47,7 @@
 
       <!-- Followers -->
 
-      <div class="followers container">
+      <div class="followers">
         <ul class="d-flex">
           <!-- Falta colocar as img -->
           <li>1 follower</li>
@@ -66,103 +64,122 @@
 
     <main>
       <!-- MAIN-HEADER -->
-      <section>
-        <ul class="d-flex justify-content-around">
-          <!-- MENU LIST -->
-          <li>
-            Overview
-            <!-- MENU OVERVIEW -->
-            <div>
-              <span>Popular repositories</span>
-              <ul>
-                <!-- LIST REPOSITORIES -->
-                <li>respositorio 1</li>
-                <li>respositorio 2</li>
-                <li>respositorio 3</li>
-                <li>respositorio 4</li>
-                <li>respositorio 5</li>
-                <li>respositorio 6</li>
-                <!--END LIST REPOSITORIES -->
-              </ul>
+      <section class="container text-center">
+        <h2>Repositories</h2>
+
+        <div class="input-group mb-2">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Find a repository..."
+            aria-label="Recipient's username"
+          />
+        </div>
+
+        <!-- Repositories -->
+        <ul class="repositories">
+          <li class="d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center">
+              <h3>clone-github-vuejs</h3>
+              <span>Private</span>
             </div>
-            <!--END MENU OVERVIEW -->
+            <div class="d-flex justify-content-between align-items-center">
+              <span>Vue</span>
+              <br />
+              <span>updated 20 hours ago</span>
+            </div>
           </li>
-          <li>Repositories</li>
-          <li>Projects</li>
+          <li class="d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center">
+              <h3>clone-github-vuejs</h3>
+              <span>Private</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <span>Vue</span>
+              <br />
+              <span>updated 20 hours ago</span>
+            </div>
+          </li>
+          <li class="d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center">
+              <h3>clone-github-vuejs</h3>
+              <span>Private</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <span>Vue</span>
+              <br />
+              <span>updated 20 hours ago</span>
+            </div>
+          </li>
         </ul>
-        <!-- MENU LIST -->
+        <!-- End Repositories -->
       </section>
       <!-- MAIN-HEADER -->
     </main>
     <!--END MAIN -->
+    <footer class="container text-center">
+      <button @click="$emit('ShowView2')">Reset system clone</button>
+    </footer>
   </div>
 </template>
 
 <script>
 export default {
   name: 'CloneGitHub',
-  props: {
-    msg: String
-  }
+  emits: ['ShowView2']
 }
 </script>
 
 <style>
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-
-  text-decoration: none;
-  list-style-type: none;
-
-  color: #fff;
-}
-html,
-body {
-  width: 100vw;
-  height: 100vh;
-}
-body {
-  background-color: #161b22;
-  color: #fff;
-}
 /* HEADER */
-body div.container header .GitHubHome {
+
+header {
+  border-top: 2px solid rgb(59, 67, 78);
+}
+div.GitHubHome {
   width: 100%;
-  font-size: 32px;
+  font-size: 24px;
 }
-body div.container header .GitHubHome .alerts {
-  font-size: 16px;
-}
-body div.container header .GitHubHome button {
+
+div.GitHubHome button {
   background: none;
   border: none;
 }
-body div.container header .infoHeader span {
+div.infoHeader span {
   font-weight: 400;
 }
-body div.container header .bio {
+header div.bio {
   margin: 24px 0;
 }
-body div.container header .bio button {
-  background-color: #21262d;
-  border: 1px solid rgb(59, 67, 78);
+header .bio button {
+  border: 2px solid rgb(59, 67, 78);
   padding: 4px;
   border-radius: 4px;
 }
-body div.container header .followers ul {
-  padding: 0;
-}
-body div.container header .followers ul li {
-  margin-right: 10px;
-}
 
 /*END HEADER */
-
-/* MAIN */
-body div.container main section ul {
+.followers ul {
   padding: 0;
+  gap: 8px;
+}
+.followers ul li {
+  width: 80px;
+}
+/* MAIN */
+main div.input-group {
+  border: 2px solid #161b22;
+  border-radius: 6px;
+}
+
+section .repositories {
+  padding: 0;
+  margin-top: 24px;
+}
+section .repositories li {
+  border-top: 1px solid rgb(59, 67, 78);
+  border-bottom: 1px solid rgb(59, 67, 78);
+
+  padding: 8px;
 }
 /* END MAIN */
 </style>

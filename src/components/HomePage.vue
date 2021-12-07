@@ -1,20 +1,9 @@
 <template>
   <div class="container">
-    <header>
-      <!-- THEME BUTTON -->
-
-      <div class="d-flex justify-content-end">
-        <button
-          class="btn"
-          v-html="buttonTheme"
-          v-on:click="changeTheme"
-        ></button>
-      </div>
-
-      <!-- END THEME BUTTON -->
+    <header class="d-flex justify-content-center align-items-center">
       <!-- H1 -->
 
-      <h1 class="text-center">
+      <h1>
         <strong>Welcome to clone GitHub by maikaodev</strong>
       </h1>
       <!-- END H1 -->
@@ -36,6 +25,7 @@
             class="btn btn-outline-secondary"
             type="button"
             id="button-addon2"
+            @click="$emit('ShowView')"
           >
             Run
           </button>
@@ -44,86 +34,13 @@
       <!-- INPUT USERNAME -->
     </main>
     <!-- Main -->
-    <footer class="container-fluid">
-      <h4 class="text-center">My social networks</h4>
-      <ul class="d-flex justify-content-between align-items-center">
-        <li>
-          <a href="https://www.linkedin.com/in/maikaodev/" target="_blank">
-            <i class="fab fa-linkedin"></i>
-          </a>
-        </li>
-        <li>
-          <a href="https://twitter.com/maikaodev" target="_blank">
-            <i class="fab fa-twitter-square"></i>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.instagram.com/maikaodev/" target="_blank">
-            <i class="fab fa-instagram-square"></i>
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/maikaodev" target="_blank">
-            <i class="fab fa-github-square"></i>
-          </a>
-        </li>
-      </ul>
-    </footer>
   </div>
 </template>
 
 <script>
 export default {
   name: 'HomePage',
-  props: {
-    msg: String
-  },
-  data() {
-    const savedButtonTheme = localStorage.getItem('buttonTheme')
-    const savedCurrentTheme = localStorage.getItem('currentTheme')
-
-    return {
-      buttonTheme: savedButtonTheme
-        ? savedButtonTheme
-        : '<i class="fas fa-moon"></i>',
-      currentTheme: savedCurrentTheme ? savedCurrentTheme : 'default'
-    }
-  },
-  methods: {
-    changeTheme() {
-      const darkTheme = '<i class="fas fa-moon"></i>'
-      const lightTheme = '<i class="far fa-moon"></i>'
-
-      if (this.buttonTheme === darkTheme) {
-        this.buttonTheme = lightTheme
-        this.currentTheme = 'Dark'
-      } else {
-        this.buttonTheme = darkTheme
-        this.currentTheme = 'Light'
-      }
-    },
-    validatingClass() {
-      const getBody = document.getElementById('body')
-
-      if (this.currentTheme === 'Dark') {
-        getBody.classList.toggle('dark')
-      } else {
-        getBody.classList.remove('dark')
-      }
-    }
-  },
-  watch: {
-    buttonTheme(val) {
-      localStorage.setItem('buttonTheme', val)
-      this.validatingClass()
-    },
-    currentTheme(val) {
-      localStorage.setItem('currentTheme', val)
-    }
-  },
-  created() {
-    this.validatingClass()
-  }
+  emits: ['ShowView']
 }
 </script>
 
@@ -135,28 +52,13 @@ export default {
   list-style-type: none;
   text-decoration: none;
 }
-html,
-body {
-  width: 100vw;
-  height: 100vh;
 
-  overflow: hidden;
-
-  color: #333;
-}
-body.dark,
-body.dark i,
-body.dark button {
-  background-color: #333;
-  color: #fff;
-}
 body div.container {
   display: grid;
   grid-auto-rows: 150px 400px 150px;
   grid-template-areas:
     'header'
-    'main'
-    'footer';
+    'main';
 }
 body div.container header {
   grid-area: header;
@@ -164,18 +66,8 @@ body div.container header {
 body div.container main {
   grid-area: main;
 }
-body div.container footer {
-  grid-area: footer;
-}
 body div.container main div.input-group input,
 body div.container main div.input-group button {
   height: 50px;
-}
-body div.container footer ul {
-  padding: 0;
-}
-body div.container footer ul li a {
-  color: #333;
-  font-size: 32px;
 }
 </style>
