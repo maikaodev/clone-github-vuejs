@@ -20,13 +20,11 @@
       <!-- InfoUser Header -->
 
       <div class="perfil d-flex align-items-center mt-3">
-        <span>
-          <i class="fas fa-user"></i>
-        </span>
+        <img :src="avatar" alt="usuário" class="me-3" />
         <br />
         <div class="infoHeader">
-          <h1>Angelo Danrley</h1>
-          <span>maikaodev</span>
+          <h1>{{ name }}</h1>
+          <span>{{ nickname }}</span>
         </div>
       </div>
 
@@ -36,7 +34,7 @@
       <div class="bio d-flex flex-column">
         <button class="text-start">Focusing</button>
         <span class="mt-3 mb-3">
-          Beginner in programming, focused on Front-End.
+          {{ bio }}
         </span>
         <div class="d-grid gap-2">
           <button>Edit Profile</button>
@@ -50,10 +48,14 @@
       <div class="followers">
         <ul class="d-flex">
           <!-- Falta colocar as img -->
-          <li>1 follower</li>
-          <li>1 following</li>
+          <li>{{ followers }} follower</li>
+          <li>{{ following }} following</li>
           <li>Star</li>
         </ul>
+        <div class="twitter d-flex text-center">
+          <span class="me-2"><i class="fab fa-twitter"></i></span>
+          <p>{{ twitter }}</p>
+        </div>
       </div>
 
       <!-- End Followers -->
@@ -65,7 +67,7 @@
     <main>
       <!-- MAIN-HEADER -->
       <section class="container text-center">
-        <h2>Repositories</h2>
+        <h2>Repositories {{ totalRepositories }}</h2>
 
         <div class="input-group mb-2">
           <input
@@ -77,38 +79,20 @@
         </div>
 
         <!-- Repositories -->
-        <ul class="repositories">
-          <li class="d-flex flex-column">
+        <ul class="repositories overflow-auto">
+          <li
+            class="d-flex flex-column"
+            v-for="(repository, index) in repositories"
+            :key="index"
+          >
             <div class="d-flex justify-content-between align-items-center">
-              <h3>clone-github-vuejs</h3>
-              <span>Private</span>
+              <h3>
+                {{ repository.name }}
+              </h3>
+              <span>{{ repository.visibility }}</span>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-              <span>Vue</span>
-              <br />
-              <span>updated 20 hours ago</span>
-            </div>
-          </li>
-          <li class="d-flex flex-column">
-            <div class="d-flex justify-content-between align-items-center">
-              <h3>clone-github-vuejs</h3>
-              <span>Private</span>
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-              <span>Vue</span>
-              <br />
-              <span>updated 20 hours ago</span>
-            </div>
-          </li>
-          <li class="d-flex flex-column">
-            <div class="d-flex justify-content-between align-items-center">
-              <h3>clone-github-vuejs</h3>
-              <span>Private</span>
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-              <span>Vue</span>
-              <br />
-              <span>updated 20 hours ago</span>
+              <span>{{ repository.language }}</span>
             </div>
           </li>
         </ul>
@@ -126,16 +110,61 @@
 <script>
 export default {
   name: 'CloneGitHub',
-  emits: ['ShowView2']
+  emits: ['ShowView2'],
+  props: { user: String },
+  data() {
+    return {
+      view: false,
+      Auser: this.user,
+      avatar: null,
+      bio: null,
+      name: null,
+      nickname: null,
+      twitter: null,
+      followers: null,
+      following: null,
+      totalRepositories: null,
+      alert: null,
+      repositories: []
+    }
+  },
+  methods: {
+    savedUser() {
+      this.Auser = this.user
+    },
+    async geTinfo() {
+      const url = `https://api.github.com/users/${this.Auser}`
+
+      await fetch(url)
+        .then(response => response.json())
+        .then(infoGit => {
+          this.avatar = infoGit.avatar_url
+          this.bio = infoGit.bio
+          this.name = infoGit.name
+          this.nickname = infoGit.login
+          this.twitter = infoGit.twitter_username
+          this.followers = infoGit.followers
+          this.following = infoGit.following
+          this.totalRepositories = infoGit.public_repos
+        })
+
+      const urlRepositories = `https://api.github.com/users/${this.Auser}/repos`
+      await fetch(urlRepositories)
+        .then(response => response.json())
+        .then(infoRepositories => {
+          this.repositories = infoRepositories
+        })
+    }
+  },
+  mounted() {
+    this.savedUser()
+    this.geTinfo()
+  }
 }
 </script>
 
-<style>
+<style scoped>
 /* HEADER */
-
-header {
-  border-top: 2px solid rgb(59, 67, 78);
-}
 div.GitHubHome {
   width: 100%;
   font-size: 24px;
@@ -144,6 +173,11 @@ div.GitHubHome {
 div.GitHubHome button {
   background: none;
   border: none;
+}
+div.perfil img {
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid rgb(59, 67, 78);
 }
 div.infoHeader span {
   font-weight: 400;
@@ -166,10 +200,6 @@ header .bio button {
   width: 80px;
 }
 /* MAIN */
-main div.input-group {
-  border: 2px solid #161b22;
-  border-radius: 6px;
-}
 
 section .repositories {
   padding: 0;

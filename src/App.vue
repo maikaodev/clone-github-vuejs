@@ -1,8 +1,8 @@
 <template>
   <div>
     <SocialLinks />
-    <HomePage @ShowView="Show_View" v-if="viewShow" />
-    <CloneGitHub @ShowView2="Show_View" v-else />
+    <HomePage @ShowView="Show_View" @getUser="get_User" v-if="viewShow" />
+    <CloneGitHub @ShowView2="Show_View" :user="user" v-else />
   </div>
 </template>
 
@@ -20,13 +20,24 @@ export default {
     CloneGitHub
   },
   data() {
+    const savedView = localStorage.getItem('view')
     return {
-      viewShow: true
+      viewShow: savedView ? savedView : true,
+      user: ''
     }
   },
   methods: {
     Show_View() {
       this.viewShow = !this.viewShow
+    },
+    get_User() {
+      const text = document.getElementById('jujuju')
+      this.user = text.value
+    }
+  },
+  watch: {
+    viewShow(val) {
+      localStorage.setItem('view', val)
     }
   }
 }
@@ -43,8 +54,7 @@ export default {
 }
 html,
 body {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
 }
 body,
 body i,
@@ -55,6 +65,7 @@ body strong {
   color: #161b22;
   background-color: #fff;
 }
+
 body.dark,
 body.dark i,
 body.dark button,

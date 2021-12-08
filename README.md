@@ -1,24 +1,6 @@
-# clone-github
+## UPGRADES
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+-[] Salvar o v-show
+-[] Salvar o nickname
+-[] Caso não ache mostrar tela de erro ou retornar para a principal
+-[] Criar validações para caso os dados do github não exista, como por exemplo o cara não tenha repositórios, nome da empresa etc.
