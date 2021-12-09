@@ -1,5 +1,5 @@
 <template>
-  <div class="container d-flex flex-column">
+  <div v-if="showRepo" class="container d-flex flex-column">
     <!-- HEADER -->
     <header class="container d-flex flex-column align-items-center">
       <!-- Icon github -->
@@ -105,6 +105,13 @@
       <button @click="$emit('ShowView2')">Reset system clone</button>
     </footer>
   </div>
+  <div
+    v-else
+    class="erroFind d-flex flex-column justify-content-center align-items-center"
+  >
+    <h1>ERROR</h1>
+    <button @click="$emit('ShowView2')">Reset system clone</button>
+  </div>
 </template>
 
 <script>
@@ -114,8 +121,9 @@ export default {
   props: { user: String },
   data() {
     return {
+      showRepo: Boolean,
       view: false,
-      Auser: this.user,
+      Auser: String,
       avatar: null,
       bio: null,
       name: null,
@@ -129,10 +137,9 @@ export default {
     }
   },
   methods: {
-    savedUser() {
-      this.Auser = this.user
-    },
     async geTinfo() {
+      this.Auser = this.user
+
       const url = `https://api.github.com/users/${this.Auser}`
 
       await fetch(url)
@@ -154,10 +161,20 @@ export default {
         .then(infoRepositories => {
           this.repositories = infoRepositories
         })
+      this.checkRepo()
+    },
+    checkRepo() {
+      if (
+        this.totalRepositories === 0 ||
+        this.totalRepositories === undefined
+      ) {
+        this.showRepo = false
+      } else {
+        this.showRepo = true
+      }
     }
   },
-  mounted() {
-    this.savedUser()
+  created() {
     this.geTinfo()
   }
 }
@@ -212,4 +229,8 @@ section .repositories li {
   padding: 8px;
 }
 /* END MAIN */
+.erroFind {
+  height: 80vh;
+  margin: 0 auto;
+}
 </style>

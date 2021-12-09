@@ -8,7 +8,6 @@
 
 <script>
 import SocialLinks from './components/SocialLinks.vue'
-
 import HomePage from './components/HomePage.vue'
 import CloneGitHub from './components/CloneGitHub.vue'
 
@@ -21,6 +20,7 @@ export default {
   },
   data() {
     const savedView = localStorage.getItem('view')
+
     return {
       viewShow: savedView ? savedView : true,
       user: ''
