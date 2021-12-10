@@ -1,8 +1,17 @@
 <template>
   <div>
     <SocialLinks />
-    <HomePage @ShowView="Show_View" @getUser="get_User" v-if="viewShow" />
-    <CloneGitHub @ShowView2="Show_View" :user="user" v-else />
+    <HomePage
+      @ShowView="Show_View"
+      @getUser="get_User"
+      v-if="viewShow === true"
+    />
+    <CloneGitHub
+      @ShowView2="Show_View"
+      @resetUser="get_User"
+      :user="user"
+      v-else
+    />
   </div>
 </template>
 
@@ -20,10 +29,11 @@ export default {
   },
   data() {
     const savedView = localStorage.getItem('view')
+    const savedUser = localStorage.getItem('user')
 
     return {
       viewShow: savedView ? savedView : true,
-      user: ''
+      user: savedUser ? savedUser : ''
     }
   },
   methods: {
@@ -32,12 +42,22 @@ export default {
     },
     get_User() {
       const text = document.getElementById('jujuju')
-      this.user = text.value
+      if (this.user === '') {
+        this.user = text.value
+      } else {
+        this.user = ''
+      }
     }
   },
   watch: {
     viewShow(val) {
       localStorage.setItem('view', val)
+    },
+    user(val) {
+      localStorage.setItem('user', val)
+    },
+    mounted() {
+      alert(this.user)
     }
   }
 }

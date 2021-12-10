@@ -102,7 +102,9 @@
     </main>
     <!--END MAIN -->
     <footer class="container text-center">
-      <button @click="$emit('ShowView2')">Reset system clone</button>
+      <button @click="$emit('ShowView2'), $emit('resetUser')">
+        Reset system clone
+      </button>
     </footer>
   </div>
   <div
@@ -110,14 +112,16 @@
     class="erroFind d-flex flex-column justify-content-center align-items-center"
   >
     <h1>ERROR</h1>
-    <button @click="$emit('ShowView2')">Reset system clone</button>
+    <button @click="$emit('ShowView2'), $emit('resetUser')">
+      Reset system clone
+    </button>
   </div>
 </template>
 
 <script>
 export default {
   name: 'CloneGitHub',
-  emits: ['ShowView2'],
+  emits: ['ShowView2', 'resetUser'],
   props: { user: String },
   data() {
     return {
