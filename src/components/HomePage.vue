@@ -15,7 +15,7 @@
         <h4 class="text-center mt-5">Write your username on github below</h4>
         <div class="input-group">
           <input
-            id="jujuju"
+            id="input_name"
             type="text"
             class="form-control"
             placeholder="username"
@@ -78,4 +78,10 @@ body div.container main div.input-group button {
 body.dark div.container main div.input-group button {
   color: #fff;
 }
+@media (min-width: 320px) {
+  header h1 {
+    text-align: center;
+  }
+}
+/* MEDIA QUERIE */
 </style>

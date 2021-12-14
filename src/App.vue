@@ -1,14 +1,10 @@
 <template>
   <div>
     <SocialLinks />
-    <HomePage
-      @ShowView="Show_View"
-      @getUser="get_User"
-      v-if="viewShow === true"
-    />
+    <HomePage @ShowView="Show_View" v-if="viewShow === true" />
     <CloneGitHub
+      @resetUser="ResetUser"
       @ShowView2="Show_View"
-      @resetUser="get_User"
       :user="user"
       v-else
     />
@@ -28,8 +24,8 @@ export default {
     CloneGitHub
   },
   data() {
-    const savedView = localStorage.getItem('view')
     const savedUser = localStorage.getItem('user')
+    const savedView = localStorage.getItem('convertValue')
 
     return {
       viewShow: savedView ? savedView : true,
@@ -38,26 +34,34 @@ export default {
   },
   methods: {
     Show_View() {
-      this.viewShow = !this.viewShow
-    },
-    get_User() {
-      const text = document.getElementById('jujuju')
-      if (this.user === '') {
-        this.user = text.value
+      const text = document.getElementById('input_name')
+      if (text.value === '') {
+        this.viewShow = true
       } else {
-        this.user = ''
+        this.viewShow = !this.viewShow
+        this.user = text.value
       }
+    },
+    ResetUser() {
+      this.viewShow = !this.viewShow
+
+      this.user = ''
     }
   },
   watch: {
     viewShow(val) {
-      localStorage.setItem('view', val)
+      const initialValue = val
+      let convertValue = Boolean
+
+      if (initialValue == 'false') {
+        convertValue = false
+      } else {
+        convertValue = true
+      }
+      localStorage.setItem('view', convertValue)
     },
     user(val) {
       localStorage.setItem('user', val)
-    },
-    mounted() {
-      alert(this.user)
     }
   }
 }
@@ -88,12 +92,18 @@ body strong {
 
 body.dark,
 body.dark i,
-body.dark button,
 body.dark strong,
 body.dark h2,
 body.dark h3,
 body.dark h4 {
   background-color: #161b22;
   color: #fff;
+}
+body.dark footer button,
+body.dark div.error button {
+  background-color: #fff;
+  color: #161b22;
+  border: 2px solid #fff;
+  font-weight: bold;
 }
 </style>
