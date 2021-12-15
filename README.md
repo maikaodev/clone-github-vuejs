@@ -12,3 +12,4 @@ https://clone-github-vuejs-maikaodev.netlify.app/
 - [ ] Adicionar loading no carregamento das páginas.
 - [x] Mudar mensagem caso não seja localizado o usuário. Alterar também a validação, atualmente está pelo número de repositórios.
 - [x] Corrigir erro ao recarregar a página.
+- [ ] Add vue Router.
