@@ -1,13 +1,15 @@
 <template>
   <div>
-    <SocialLinks />
-    <HomePage @ShowView="Show_View" v-if="viewShow === true" />
-    <CloneGitHub
-      @resetUser="ResetUser"
-      @ShowView2="Show_View"
-      :user="user"
-      v-else
-    />
+    <div>
+      <SocialLinks />
+      <HomePage @ShowView="Show_View" v-if="viewShow === 'Show'" />
+      <CloneGitHub
+        @resetUser="ResetUser"
+        @ShowView2="Show_View"
+        :user="user"
+        v-else
+      />
+    </div>
   </div>
 </template>
 
@@ -25,10 +27,10 @@ export default {
   },
   data() {
     const savedUser = localStorage.getItem('user')
-    const savedView = localStorage.getItem('convertValue')
+    const savedView = localStorage.getItem('view')
 
     return {
-      viewShow: savedView ? savedView : true,
+      viewShow: savedView ? savedView : 'Show',
       user: savedUser ? savedUser : ''
     }
   },
@@ -36,29 +38,21 @@ export default {
     Show_View() {
       const text = document.getElementById('input_name')
       if (text.value === '') {
-        this.viewShow = true
+        this.viewShow = 'Show'
       } else {
-        this.viewShow = !this.viewShow
+        this.viewShow = 'Hide'
         this.user = text.value
       }
     },
     ResetUser() {
-      this.viewShow = !this.viewShow
+      this.viewShow = 'Show'
 
       this.user = ''
     }
   },
   watch: {
     viewShow(val) {
-      const initialValue = val
-      let convertValue = Boolean
-
-      if (initialValue == 'false') {
-        convertValue = false
-      } else {
-        convertValue = true
-      }
-      localStorage.setItem('view', convertValue)
+      localStorage.setItem('view', val)
     },
     user(val) {
       localStorage.setItem('user', val)
@@ -98,6 +92,11 @@ body.dark h3,
 body.dark h4 {
   background-color: #161b22;
   color: #fff;
+}
+body.dark .container header .twitter i,
+body.dark .container header .followers i,
+body.dark .container header .followers li span {
+  color: #8b949e;
 }
 body.dark footer button,
 body.dark div.error button {

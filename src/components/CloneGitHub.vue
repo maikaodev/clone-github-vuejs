@@ -5,7 +5,7 @@
       <div
         class="error container d-flex flex-column justify-content-center align-items-center"
       >
-        <h1>user error not found...</h1>
+        <h1>error, user not found...</h1>
         <button @click="$emit('ShowView2'), $emit('resetUser')">
           Reset system clone
         </button>
@@ -51,26 +51,31 @@
               <span class="mt-3 mb-3">
                 {{ bio }}
               </span>
-              <div class="d-grid gap-2">
-                <button>Edit Profile</button>
-              </div>
             </div>
 
             <!-- End Description -->
 
             <!-- Followers -->
 
-            <div class="followers">
+            <div class="container followers">
+              <div class="twitter d-flex flex-column text-left">
+                <p>
+                  <i class="fab fa-twitter"></i>
+                  @{{ twitter }}
+                </p>
+                <p>
+                  <i class="fas fa-link"></i>
+                  {{ blog }}
+                </p>
+              </div>
               <ul class="d-flex">
                 <!-- Falta colocar as img -->
-                <li>{{ followers }} follower</li>
-                <li>{{ following }} following</li>
-                <li>Star</li>
+                <li>
+                  <i class="fas fa-user-friends"></i>
+                  {{ followers }} <span>followers</span>
+                </li>
+                <li>{{ following }} <span>following</span></li>
               </ul>
-              <div class="twitter d-flex text-center">
-                <span class="me-2"><i class="fab fa-twitter"></i></span>
-                <p>@{{ twitter }}</p>
-              </div>
             </div>
 
             <!-- End Followers -->
@@ -143,6 +148,7 @@ export default {
       name: null,
       nickname: null,
       twitter: null,
+      blog: null,
       followers: null,
       following: null,
       totalRepositories: null,
@@ -163,6 +169,7 @@ export default {
           this.name = infoGit.name
           this.nickname = infoGit.login
           this.twitter = infoGit.twitter_username
+          this.blog = infoGit.blog
           this.followers = infoGit.followers
           this.following = infoGit.following
           this.totalRepositories = infoGit.public_repos
@@ -187,6 +194,9 @@ export default {
 header {
   align-items: center;
 }
+header .perfil h1 {
+  margin: 0;
+}
 div.GitHubHome {
   width: 100%;
   font-size: 24px;
@@ -200,27 +210,36 @@ div.perfil img {
   height: 50px;
   border-radius: 50%;
   border: 2px solid rgb(59, 67, 78);
+  object-fit: contain;
 }
 div.infoHeader span {
   font-weight: 400;
 }
 header div.bio {
-  margin: 24px 0;
+  margin-top: 24px;
 }
 header .bio button {
   border: 2px solid rgb(59, 67, 78);
   padding: 4px;
   border-radius: 4px;
 }
-
+header .twitter {
+  margin-bottom: 8px;
+}
+header .twitter p {
+  margin: 0;
+}
 /*END HEADER */
+.followers {
+  padding: 0;
+}
 .followers ul {
   padding: 0;
 }
 .followers ul li {
-  width: 80px;
-  margin-right: 4px;
+  margin-right: 8px;
 }
+
 /* MAIN */
 
 section .repositories {
@@ -229,7 +248,8 @@ section .repositories {
 }
 section .repositories li {
   border-bottom: 1px solid rgb(59, 67, 78);
-  padding: 8px;
+  padding: 8px 0px;
+  text-align: left;
 }
 
 /* END MAIN */
@@ -261,6 +281,11 @@ footer button {
 }
 
 /* MEDIA QUERIES */
+@media (max-width: 425px) {
+  footer button {
+    width: 250px;
+  }
+}
 
 @media (min-width: 768px) {
   #container {
