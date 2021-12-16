@@ -2,61 +2,18 @@
   <div>
     <div>
       <SocialLinks />
-      <HomePage @ShowView="Show_View" v-if="viewShow === 'Show'" />
-      <CloneGitHub
-        @resetUser="ResetUser"
-        @ShowView2="Show_View"
-        :user="user"
-        v-else
-      />
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
 import SocialLinks from './components/SocialLinks.vue'
-import HomePage from './components/HomePage.vue'
-import CloneGitHub from './components/CloneGitHub.vue'
 
 export default {
   name: 'App',
   components: {
-    SocialLinks,
-    HomePage,
-    CloneGitHub
-  },
-  data() {
-    const savedUser = localStorage.getItem('user')
-    const savedView = localStorage.getItem('view')
-
-    return {
-      viewShow: savedView ? savedView : 'Show',
-      user: savedUser ? savedUser : ''
-    }
-  },
-  methods: {
-    Show_View() {
-      const text = document.getElementById('input_name')
-      if (text.value === '') {
-        this.viewShow = 'Show'
-      } else {
-        this.viewShow = 'Hide'
-        this.user = text.value
-      }
-    },
-    ResetUser() {
-      this.viewShow = 'Show'
-
-      this.user = ''
-    }
-  },
-  watch: {
-    viewShow(val) {
-      localStorage.setItem('view', val)
-    },
-    user(val) {
-      localStorage.setItem('user', val)
-    }
+    SocialLinks
   }
 }
 </script>

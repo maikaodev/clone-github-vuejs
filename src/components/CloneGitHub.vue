@@ -1,19 +1,17 @@
 <template>
   <div>
     <!--ERROR USER -->
-    <div v-if="this.name === null">
+    <div v-if="this.status === 'error'">
       <div
         class="error container d-flex flex-column justify-content-center align-items-center"
       >
         <h1>error, user not found...</h1>
-        <button @click="$emit('ShowView2'), $emit('resetUser')">
-          Reset system clone
-        </button>
+        <router-link to="/"> Reset system clone </router-link>
       </div>
     </div>
     <!--END ERROR USER -->
 
-    <div v-else>
+    <div v-if="this.status === 'success'">
       <div class="container d-flex flex-column">
         <div id="container">
           <!-- HEADER -->
@@ -127,10 +125,11 @@
         <!--END MAIN -->
       </div>
       <footer class="container text-center">
-        <button @click="$emit('ShowView2'), $emit('resetUser'), 'clear'">
-          Reset system clone
-        </button>
+        <router-link to="/"> Reset system clone </router-link>
       </footer>
+    </div>
+    <div v-if="this.status === 'loading'">
+      <h1>LOADING</h1>
     </div>
   </div>
 </template>
@@ -138,10 +137,9 @@
 <script>
 export default {
   name: 'CloneGitHub',
-  emits: ['ShowView2', 'resetUser'],
-  props: { user: String },
   data() {
     return {
+      status: 'loading',
       Auser: String,
       avatar: null,
       bio: null,
@@ -157,7 +155,7 @@ export default {
   },
   methods: {
     async geTinfo() {
-      this.Auser = this.user
+      this.Auser = this.$route.params.id || this.user
 
       const url = `https://api.github.com/users/${this.Auser}`
 
@@ -173,6 +171,10 @@ export default {
           this.followers = infoGit.followers
           this.following = infoGit.following
           this.totalRepositories = infoGit.public_repos
+          this.status = 'success'
+        })
+        .catch(() => {
+          this.status = 'error'
         })
 
       const urlRepositories = `https://api.github.com/users/${this.Auser}/repos`
@@ -180,6 +182,9 @@ export default {
         .then(response => response.json())
         .then(infoRepositories => {
           this.repositories = infoRepositories
+        })
+        .catch(() => {
+          this.status = 'error'
         })
     }
   },

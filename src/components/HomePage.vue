@@ -21,15 +21,16 @@
             placeholder="username"
             aria-label="Recipient's username"
             aria-describedby="button-addon2"
+            v-model="user"
           />
-          <button
+          <router-link
             class="btn btn-outline-secondary"
             type="button"
             id="button-addon2"
-            @click="$emit('ShowView'), $emit('getUser')"
+            :to="link"
           >
             Run
-          </button>
+          </router-link>
         </div>
       </div>
       <!-- INPUT USERNAME -->
@@ -41,7 +42,16 @@
 <script>
 export default {
   name: 'HomePage',
-  emits: ['ShowView', 'getUser']
+  data() {
+    return {
+      user: ''
+    }
+  },
+  computed: {
+    link() {
+      return `/clone/${this.user}`
+    }
+  }
 }
 </script>
 
