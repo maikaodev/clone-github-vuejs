@@ -32,6 +32,7 @@ body {
   width: 100%;
 }
 body,
+body a,
 body i,
 body h2,
 body h3,
@@ -42,6 +43,7 @@ body strong {
 }
 
 body.dark,
+body.dark a,
 body.dark i,
 body.dark strong,
 body.dark h2,

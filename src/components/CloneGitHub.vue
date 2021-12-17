@@ -1,14 +1,8 @@
 <template>
   <div>
     <!--ERROR USER -->
-    <div v-if="this.status === 'error'">
-      <div
-        class="error container d-flex flex-column justify-content-center align-items-center"
-      >
-        <h1>error, user not found...</h1>
-        <router-link to="/"> Reset system clone </router-link>
-      </div>
-    </div>
+    <ErrorNotFound v-if="this.status === 'error'" />
+
     <!--END ERROR USER -->
 
     <div v-if="this.status === 'success'">
@@ -135,8 +129,10 @@
 </template>
 
 <script>
+import ErrorNotFound from './errorNotFound.vue'
 export default {
   name: 'CloneGitHub',
+  components: { ErrorNotFound },
   data() {
     return {
       status: 'loading',
