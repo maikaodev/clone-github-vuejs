@@ -28,11 +28,7 @@
       </ul>
     </div>
     <div class="d-flex justify-content-end">
-      <button
-        class="btn"
-        v-html="buttonTheme"
-        v-on:click="changeTheme"
-      ></button>
+      <button class="btn" v-html="buttonTheme" @click="changeTheme"></button>
     </div>
   </div>
 </template>

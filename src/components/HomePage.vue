@@ -15,21 +15,24 @@
         <h4 class="text-center mt-5">Write your username on github below</h4>
         <div class="input-group">
           <input
-            id="input_name"
             type="text"
             class="form-control"
             placeholder="username"
             aria-label="Recipient's username"
             aria-describedby="button-addon2"
+            v-model="user"
           />
-          <button
-            class="btn btn-outline-secondary"
+          <router-link
+            id="button-run"
+            class="btn btn-outline-secondary d-flex align-items-center disabled"
             type="button"
-            id="button-addon2"
-            @click="$emit('ShowView'), $emit('getUser')"
+            :to="link"
+            tabindex="-1"
+            role="button"
+            aria-disabled="true"
           >
             Run
-          </button>
+          </router-link>
         </div>
       </div>
       <!-- INPUT USERNAME -->
@@ -41,7 +44,26 @@
 <script>
 export default {
   name: 'HomePage',
-  emits: ['ShowView', 'getUser']
+  data() {
+    return {
+      user: ''
+    }
+  },
+  computed: {
+    link() {
+      return `/clone/${this.user}`
+    }
+  },
+  watch: {
+    user(val) {
+      const buttonRun = document.getElementById('button-run')
+      if (val === '') {
+        buttonRun.classList.add('disabled')
+      } else {
+        buttonRun.classList.remove('disabled')
+      }
+    }
+  }
 }
 </script>
 
@@ -62,22 +84,23 @@ body div.container main {
   grid-area: main;
 }
 body div.container main div.input-group input,
-body div.container main div.input-group button {
+body div.container main div.input-group a {
   height: 50px;
   border: 2px solid #161b22;
   border-radius: 6px;
 }
 body.dark div.container main div.input-group input,
-body.dark div.container main div.input-group button {
+body.dark div.container main div.input-group a {
   border: 2px solid #fff;
 }
-body div.container main div.input-group button {
+body div.container main div.input-group a {
   font-weight: bold;
   color: #161b22;
 }
-body.dark div.container main div.input-group button {
+body.dark div.container main div.input-group a {
   color: #fff;
 }
+
 @media (min-width: 320px) {
   header h1 {
     text-align: center;
