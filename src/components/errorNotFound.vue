@@ -4,7 +4,7 @@
       class="error container d-flex flex-column justify-content-center align-items-center"
     >
       <h1>error, user not found...</h1>
-      <router-link to="/"> Reset system clone </router-link>
+      <router-link class="text-center" to="/"> Reset system clone </router-link>
     </div>
   </div>
 </template>
@@ -29,5 +29,13 @@ export default {
   background-color: #161b22;
   color: #fff;
   border: 2px solid #161b22;
+  text-decoration: none;
 }
+
+body.dark .error a {
+  background-color: #fff;
+  border: 2px solid #fff;
+  color: #161b22;
+}
+
 </style>
