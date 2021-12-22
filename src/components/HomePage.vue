@@ -59,8 +59,10 @@ export default {
       const buttonRun = document.getElementById('button-run')
       if (val === '') {
         buttonRun.classList.add('disabled')
+        buttonRun.setAttribute('tabindex', -1)
       } else {
         buttonRun.classList.remove('disabled')
+        buttonRun.setAttribute('tabindex', 0)
       }
     }
   }

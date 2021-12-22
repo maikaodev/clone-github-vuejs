@@ -14,3 +14,20 @@ export default {
   name: 'ErrorNotFound'
 }
 </script>
+<style scoped>
+/* END FOOTER */
+.error {
+  height: 80vh;
+  margin: 0 auto;
+}
+.error a {
+  width: 200px;
+  padding: 4px 8px;
+
+  font-weight: bold;
+
+  background-color: #161b22;
+  color: #fff;
+  border: 2px solid #161b22;
+}
+</style>
