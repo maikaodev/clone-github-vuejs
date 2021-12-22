@@ -2,192 +2,233 @@
   <div>
     <!--ERROR USER -->
     <ErrorNotFound v-if="this.status === 'error'" />
-
     <!--END ERROR USER -->
 
     <div v-if="this.status === 'success'">
-      <div class="container d-flex flex-column">
-        <div id="container">
-          <!-- HEADER -->
-          <header class="container d-flex flex-column">
-            <!-- Icon github -->
-            <div
-              class="GitHubHome d-flex justify-content-between align-items-center mt-2"
-            >
-              <button>
-                <i class="fas fa-bars"></i>
-              </button>
-              <a href="#">
-                <i class="fab fa-github"></i>
-              </a>
-              <i class="alerts far fa-bell"></i>
-            </div>
-
-            <!-- End Icon github -->
-
-            <!-- InfoUser Header -->
-
-            <div class="perfil d-flex align-items-center mt-3">
-              <img :src="avatar" alt="userPhoto" class="me-3" />
-              <div class="infoHeader">
-                <h1>{{ name }}</h1>
-                <span>{{ nickname }}</span>
+      <ErrorNotFound v-if="this.message === 'Not Found'" />
+      <ErrorNotFound v-else-if="this.name === null" />
+      <div v-else>
+        <div class="container d-flex flex-column">
+          <div id="container">
+            <!-- HEADER -->
+            <header class="container d-flex flex-column">
+              <!-- Icon github -->
+              <div
+                class="GitHubHome d-flex justify-content-between align-items-center mt-2"
+              >
+                <button>
+                  <i class="fas fa-bars"></i>
+                </button>
+                <a href="#">
+                  <i class="fab fa-github"></i>
+                </a>
+                <i class="alerts far fa-bell"></i>
               </div>
-            </div>
 
-            <!-- End InfoUser Header -->
+              <!-- End Icon github -->
 
-            <!-- Description -->
-            <div class="bio d-flex flex-column">
-              <button class="text-start">Focusing</button>
-              <span class="mt-3 mb-3">
-                {{ bio }}
-              </span>
-            </div>
+              <!-- InfoUser Header -->
 
-            <!-- End Description -->
-
-            <!-- Followers -->
-
-            <div class="container followers">
-              <div class="twitter d-flex flex-column text-left">
-                <p>
-                  <i class="fab fa-twitter"></i>
-                  @{{ twitter }}
-                </p>
-                <p>
-                  <i class="fas fa-link"></i>
-                  {{ blog }}
-                </p>
+              <div class="perfil d-flex align-items-center mt-3">
+                <img :src="avatar" alt="userPhoto" class="me-3" />
+                <div class="infoHeader">
+                  <h1>{{ name }}</h1>
+                  <span>{{ nickname }}</span>
+                </div>
               </div>
-              <ul class="d-flex">
-                <!-- Falta colocar as img -->
-                <li>
-                  <i class="fas fa-user-friends"></i>
-                  {{ followers }} <span>followers</span>
-                </li>
-                <li>{{ following }} <span>following</span></li>
-              </ul>
-            </div>
 
-            <!-- End Followers -->
-          </header>
-          <!--END HEADER -->
+              <!-- End InfoUser Header -->
 
-          <!-- MAIN -->
-
-          <main>
-            <!-- MAIN-HEADER -->
-            <section class="container text-center">
-              <h2>Repositories {{ totalRepositories }}</h2>
-
-              <div class="input-group mb-2">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Find a repository..."
-                  aria-label="Recipient's username"
-                />
+              <!-- Bio -->
+              <div class="bio d-flex flex-column">
+                <span v-show="this.bio != String" class="mt-3 mb-3">
+                  {{ bio }}
+                </span>
               </div>
-              <!-- Repositories -->
-              <ul class="repositories">
-                <li
-                  class="d-flex flex-column"
-                  v-for="(repository, index) in repositories"
-                  :key="index"
-                >
-                  <div
-                    class="d-flex justify-content-between align-items-center"
+
+              <!-- End Bio -->
+
+              <!-- Followers and Description -->
+
+              <div class="container followers">
+                <div class="description d-flex flex-column text-left">
+                  <!-- DESCRIPTION -->
+                  <section>
+                    <ul>
+                      <li v-show="this.company">
+                        <i class="fas fa-building"></i>
+                        {{ company }}
+                      </li>
+
+                      <li v-show="this.location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        {{ location }}
+                      </li>
+
+                      <p v-show="this.twitter">
+                        <i class="fab fa-twitter"></i>
+                        @ {{ twitter }}
+                      </p>
+
+                      <li v-show="this.blog">
+                        <a :href="blog" target="_blank">
+                          <i class="fas fa-link"></i>
+                          {{ blog }}
+                        </a>
+                      </li>
+                    </ul>
+                  </section>
+                </div>
+                <!-- END DESCRIPTION -->
+
+                <!-- FOLLOWS -->
+                <section>
+                  <ul class="d-flex">
+                    <!-- Falta colocar as img -->
+                    <li>
+                      <i class="fas fa-user-friends"></i>
+                      {{ followers }} <span>followers</span>
+                    </li>
+                    <li>{{ following }} <span>following</span></li>
+                  </ul>
+                </section>
+                <!-- END FOLLOWS -->
+              </div>
+
+              <!-- End Followers -->
+            </header>
+            <!--END HEADER -->
+
+            <!-- MAIN -->
+
+            <main>
+              <!-- MAIN-HEADER -->
+              <section class="container text-center">
+                <h2>Repositories {{ totalRepositories }}</h2>
+
+                <div class="input-group mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Find a repository..."
+                    aria-label="Recipient's username"
+                  />
+                </div>
+                <!-- Repositories -->
+                <h1 v-if="this.totalRepositories === 0" class="noReposiories">
+                  The aren't repositories...
+                </h1>
+
+                <ul v-else class="repositories">
+                  <li
+                    class="d-flex flex-column"
+                    v-for="(repository, index) in repositories"
+                    :key="index"
                   >
-                    <h3>
-                      {{ repository.name }}
-                    </h3>
-                    <span>{{ repository.visibility }}</span>
-                  </div>
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <span>{{ repository.language }}</span>
-                  </div>
-                </li>
-              </ul>
-              <!-- End Repositories -->
-            </section>
-            <!-- MAIN-HEADER -->
-          </main>
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <h3>
+                        {{ repository.name }}
+                      </h3>
+                      <span>{{ repository.visibility }}</span>
+                    </div>
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <span>{{ repository.language }}</span>
+                    </div>
+                  </li>
+                </ul>
+                <!-- End Repositories -->
+              </section>
+              <!-- MAIN-HEADER -->
+            </main>
+          </div>
+
+          <!--END MAIN -->
         </div>
-        <!--END MAIN -->
+        <footer class="text-center">
+          <router-link to="/"> Reset system clone </router-link>
+        </footer>
       </div>
-      <footer class="container text-center">
-        <router-link to="/"> Reset system clone </router-link>
-      </footer>
     </div>
-    <div v-if="this.status === 'loading'">
-      <h1>LOADING</h1>
+    <div
+      class="loading d-flex justify-content-center align-items-center"
+      v-if="this.status === 'loading'"
+    >
+      <img src="../assets/images/loading-gif.gif" alt="Loading..." />
     </div>
   </div>
 </template>
 
 <script>
-import ErrorNotFound from './errorNotFound.vue'
+import ErrorNotFound from "./errorNotFound.vue";
+
 export default {
-  name: 'CloneGitHub',
+  name: "CloneGitHub",
   components: { ErrorNotFound },
   data() {
     return {
-      status: 'loading',
-      Auser: String,
+      status: "loading",
+      gitUser: String,
+      message: String,
       avatar: null,
-      bio: null,
-      name: null,
-      nickname: null,
-      twitter: null,
-      blog: null,
-      followers: null,
-      following: null,
+      bio: String,
+      name: String,
+      nickname: String,
+      company: String,
+      location: String,
+      twitter: String,
+      blog: String,
+      followers: String,
+      following: String,
       totalRepositories: null,
-      repositories: []
-    }
+      repositories: [],
+    };
   },
   methods: {
     async geTinfo() {
-      this.Auser = this.$route.params.id || this.user
+      this.gitUser = this.$route.params.id || this.user;
 
-      const url = `https://api.github.com/users/${this.Auser}`
+      const url = `https://api.github.com/users/${this.gitUser}`;
 
       await fetch(url)
-        .then(response => response.json())
-        .then(infoGit => {
-          this.avatar = infoGit.avatar_url
-          this.bio = infoGit.bio
-          this.name = infoGit.name
-          this.nickname = infoGit.login
-          this.twitter = infoGit.twitter_username
-          this.blog = infoGit.blog
-          this.followers = infoGit.followers
-          this.following = infoGit.following
+        .then((response) => response.json())
+        .then((infoGit) => {
+          this.avatar = infoGit.avatar_url;
+          this.bio = infoGit.bio;
+          this.name = infoGit.name;
+          this.nickname = infoGit.login;
+          this.company = infoGit.company;
+          this.location = infoGit.location;
+          this.twitter = infoGit.twitter_username;
+          this.blog = infoGit.blog;
+          this.followers = infoGit.followers;
+          this.following = infoGit.following;
           this.totalRepositories = infoGit.public_repos
-          this.status = 'success'
+          this.message = infoGit.message;
+          this.status = "success";
         })
         .catch(() => {
-          this.status = 'error'
-        })
+          this.status = "error";
+        });
 
-      const urlRepositories = `https://api.github.com/users/${this.Auser}/repos`
+      const urlRepositories = `https://api.github.com/users/${this.gitUser}/repos`;
       await fetch(urlRepositories)
-        .then(response => response.json())
-        .then(infoRepositories => {
-          this.repositories = infoRepositories
+        .then((response) => response.json())
+        .then((infoRepositories) => {
+          this.repositories = infoRepositories;
         })
         .catch(() => {
-          this.status = 'error'
-        })
-    }
+          this.status = "error";
+        });
+    },
   },
   created() {
-    this.geTinfo()
-  }
-}
+    this.geTinfo();
+  },
+};
 </script>
 
 <style scoped>
@@ -216,23 +257,24 @@ div.perfil img {
 div.infoHeader span {
   font-weight: 400;
 }
-header div.bio {
-  margin-top: 24px;
-}
-header .bio button {
-  border: 2px solid rgb(59, 67, 78);
-  padding: 4px;
-  border-radius: 4px;
-}
-header .twitter {
+header .description {
   margin-bottom: 8px;
 }
-header .twitter p {
+header .description p {
   margin: 0;
 }
 /*END HEADER */
 .followers {
   padding: 0;
+}
+.followers a {
+  text-decoration: none;
+}
+.followers a:hover {
+  color: #222;
+}
+body.dark .followers a:hover {
+  color: #fff;
 }
 .followers ul {
   padding: 0;
@@ -247,6 +289,9 @@ section .repositories {
   padding: 0;
   margin-top: 24px;
 }
+.noReposiories{
+  margin-top: 32px;
+}
 section .repositories li {
   border-bottom: 1px solid rgb(59, 67, 78);
   padding: 8px 0px;
@@ -256,29 +301,32 @@ section .repositories li {
 /* END MAIN */
 
 /* FOOTER */
-footer button {
-  width: 40%;
-  margin: 24px;
-  padding: 4px 8px;
-  background-color: #222;
-  color: #fff;
-  border: 2px solid #222;
+footer {
+  margin-top: 40px;
+  
 }
-
-/* END FOOTER */
-.error {
-  height: 80vh;
-  margin: 0 auto;
-}
-.error button {
-  width: 200px;
-  padding: 4px 8px;
-
-  font-weight: bold;
-
+footer a {
   background-color: #161b22;
   color: #fff;
   border: 2px solid #161b22;
+  border-radius: 4px;
+
+  text-decoration: none;
+
+  padding: 8px 40px;
+}
+body.dark footer a {
+  background-color: #fff;
+  color: #161b22;
+}
+
+/* LOADING   */
+.loading {
+  height: 80vh;
+}
+.loading img {
+  width: 50px;
+  height: 50px;
 }
 
 /* MEDIA QUERIES */
