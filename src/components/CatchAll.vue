@@ -2,7 +2,7 @@
   <div>
     <div class="error container d-flex flex-column justify-content-center align-items-center">
       <h1>error 404, page not found...</h1>
-      <router-link class="text-center" to="HomePage"
+      <router-link class="text-center" to="/"
         >Back to home page</router-link
       >
     </div>
