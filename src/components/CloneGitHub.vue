@@ -115,7 +115,10 @@
                   />
                 </div>
                 <!-- Repositories -->
-                <h1 v-if="this.totalRepositories === 0" class="noReposiories">
+                <h1
+                  v-if="this.totalRepositories === 0"
+                  class="emptyRepositories"
+                >
                   The aren't repositories...
                 </h1>
 
@@ -143,6 +146,11 @@
                 <!-- End Repositories -->
               </section>
               <!-- MAIN-HEADER -->
+              <Pagination
+                :totalRepositories="totalRepositories"
+                :checkPage="checkPage"
+                @navigate="geTinfo"
+              />
             </main>
           </div>
 
@@ -164,10 +172,11 @@
 
 <script>
 import ErrorNotFound from "./errorNotFound.vue";
+import Pagination from "./Pagination.vue";
 
 export default {
   name: "CloneGitHub",
-  components: { ErrorNotFound },
+  components: { ErrorNotFound, Pagination },
   data() {
     return {
       status: "loading",
@@ -183,12 +192,13 @@ export default {
       blog: String,
       followers: String,
       following: String,
-      totalRepositories: null,
+      totalRepositories: Number,
       repositories: [],
+      checkPage: Number,
     };
   },
   methods: {
-    async geTinfo() {
+    async geTinfo(page) {
       this.gitUser = this.$route.params.id || this.user;
 
       const url = `https://api.github.com/users/${this.gitUser}`;
@@ -206,15 +216,15 @@ export default {
           this.blog = infoGit.blog;
           this.followers = infoGit.followers;
           this.following = infoGit.following;
-          this.totalRepositories = infoGit.public_repos
+          this.totalRepositories = infoGit.public_repos;
           this.message = infoGit.message;
           this.status = "success";
         })
         .catch(() => {
           this.status = "error";
         });
-
-      const urlRepositories = `https://api.github.com/users/${this.gitUser}/repos`;
+      this.checkPage = page;
+      const urlRepositories = `https://api.github.com/users/${this.gitUser}/repos?per_page=6&page=${page}`;
       await fetch(urlRepositories)
         .then((response) => response.json())
         .then((infoRepositories) => {
@@ -288,8 +298,9 @@ body.dark .followers a:hover {
 section .repositories {
   padding: 0;
   margin-top: 24px;
+  height: 500px;
 }
-.noReposiories{
+.emptyRepositories {
   margin-top: 32px;
 }
 section .repositories li {
@@ -303,7 +314,6 @@ section .repositories li {
 /* FOOTER */
 footer {
   margin-top: 40px;
-  
 }
 footer a {
   background-color: #161b22;

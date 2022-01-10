@@ -35,54 +35,54 @@
 
 <script>
 export default {
-  name: 'SocialLinks',
+  name: "SocialLinks",
   data() {
-    const savedButtonTheme = localStorage.getItem('buttonTheme')
-    const savedCurrentTheme = localStorage.getItem('currentTheme')
+    const savedButtonTheme = localStorage.getItem("buttonTheme");
+    const savedCurrentTheme = localStorage.getItem("currentTheme");
 
     return {
       buttonTheme: savedButtonTheme
         ? savedButtonTheme
         : '<i class="fas fa-moon"></i>',
-      currentTheme: savedCurrentTheme ? savedCurrentTheme : 'default'
-    }
+      currentTheme: savedCurrentTheme ? savedCurrentTheme : "default",
+    };
   },
   methods: {
     changeTheme() {
-      const darkTheme = '<i class="fas fa-moon"></i>'
-      const lightTheme = '<i class="far fa-moon"></i>'
+      const darkTheme = '<i class="fas fa-moon"></i>';
+      const lightTheme = '<i class="far fa-moon"></i>';
 
       if (this.buttonTheme === darkTheme) {
-        this.buttonTheme = lightTheme
-        this.currentTheme = 'Dark'
+        this.buttonTheme = lightTheme;
+        this.currentTheme = "Dark";
       } else {
-        this.buttonTheme = darkTheme
-        this.currentTheme = 'Light'
+        this.buttonTheme = darkTheme;
+        this.currentTheme = "Light";
       }
     },
     validatingClass() {
-      const getBody = document.getElementById('body')
+      const getBody = document.getElementById("body");
 
-      if (this.currentTheme === 'Dark') {
-        getBody.classList.toggle('dark')
+      if (this.currentTheme === "Dark") {
+        getBody.classList.toggle("dark");
       } else {
-        getBody.classList.remove('dark')
+        getBody.classList.remove("dark");
       }
-    }
+    },
   },
   watch: {
     buttonTheme(val) {
-      localStorage.setItem('buttonTheme', val)
-      this.validatingClass()
+      localStorage.setItem("buttonTheme", val);
+      this.validatingClass();
     },
     currentTheme(val) {
-      localStorage.setItem('currentTheme', val)
-    }
+      localStorage.setItem("currentTheme", val);
+    },
   },
   created() {
-    this.validatingClass()
-  }
-}
+    this.validatingClass();
+  },
+};
 </script>
 
 <style scoped>
