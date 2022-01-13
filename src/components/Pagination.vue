@@ -1,22 +1,22 @@
 <template>
   <div>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination container d-flex justify-content-center m-0 p-0">
-        <li class="page-item">
-          <a class="page-link" @click="Previous">Previous</a>
+    <nav aria-label=" navigation example">
+      <ul class="container d-flex justify-content-center m-0 p-0">
+        <li>
+          <a @click="Previous">Previous</a>
         </li>
 
         <li v-for="(page, index) in TotalPages" :key="index">
           <a
-            class="link page-link"
+            class="link"
             :class="{ active: currentPage == page }"
             @click="navigate(page)"
-            >{{ page }}</a
-          >
+            >{{ page }}
+          </a>
         </li>
 
-        <li class="page-item">
-          <a class="page-link" @click="Next">Next</a>
+        <li>
+          <a @click="Next">Next</a>
         </li>
       </ul>
     </nav>
@@ -76,13 +76,21 @@ export default {
 nav ul {
   flex-wrap: wrap;
 }
-nav ul .active {
-  background-color: #161b22;
+nav ul li{
+  height:40px
+}
+nav ul li a {
+  padding: 8px 10px;
+  text-decoration: none;
+}
+nav ul li .active {
+  background-color: #344050;
+  border: 1px solid #161b22;
+
   color: #fff;
 }
-body.dark nav ul .active {
-  background-color: #fff;
-  color: #161b22;
+body.dark nav ul li .active {
+  background-color: #344050;
 }
 nav ul li a {
   color: #161b22;
@@ -95,14 +103,6 @@ nav ul li a {
 body.dark nav ul li a {
   border: 1px solid #fff;
   background-color: #161b22;
-  color: #fff;
-}
-nav ul li a:hover {
-  color: #161b22;
-  border: 1px solid #161b22;
-}
-body.dark nav ul li a:hover {
-  background-color: #344050;
   color: #fff;
 }
 </style>
