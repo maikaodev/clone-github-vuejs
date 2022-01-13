@@ -6,8 +6,13 @@
           <a class="page-link" @click="Previous">Previous</a>
         </li>
 
-        <li v-for="(page, index) in TotalPages" :key="index" >
-          <a class="link page-link" :class="{ active: currentPage === page}" @click="navigate(page)">{{ page }}</a>
+        <li v-for="(page, index) in TotalPages" :key="index">
+          <a
+            class="link page-link"
+            :class="{ active: currentPage === page }"
+            @click="navigate(page)"
+            >{{ page }}</a
+          >
         </li>
 
         <li class="page-item">
@@ -25,7 +30,7 @@ export default {
   data() {
     return {
       TotalPages: [],
-      currentPage: this.$route.query.page || 1
+      currentPage: this.$route.query.page || 1,
     };
   },
   methods: {
@@ -46,7 +51,7 @@ export default {
       if (this.currentPage < this.TotalPages) {
         this.currentPage++;
       }
-      this.EmitCurrentPage()
+      this.EmitCurrentPage();
     },
     SavingRoute() {
       this.$router.replace({ query: { page: this.currentPage } });
@@ -58,10 +63,11 @@ export default {
   watch: {
     currentPage() {
       this.SavingRoute();
-    }
+    },
   },
   created() {
     this.Calculating();
+    this.SavingRoute();
   },
 };
 </script>
@@ -71,12 +77,12 @@ nav ul {
   flex-wrap: wrap;
 }
 nav ul .active {
-background-color: #161b22;
-color: #fff;
+  background-color: #161b22;
+  color: #fff;
 }
 body.dark nav ul .active {
- background-color: #fff;
- color: #161b22;
+  background-color: #fff;
+  color: #161b22;
 }
 nav ul li a {
   color: #161b22;
