@@ -9,7 +9,7 @@
         <li v-for="(page, index) in TotalPages" :key="index">
           <a
             class="link page-link"
-            :class="{ active: currentPage === page }"
+            :class="{ active: currentPage == page }"
             @click="navigate(page)"
             >{{ page }}</a
           >
