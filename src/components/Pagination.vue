@@ -1,13 +1,13 @@
 <template>
   <div>
     <nav aria-label="Page navigation example">
-      <ul class="pagination d-flex justify-content-center m-0">
+      <ul class="pagination container d-flex justify-content-center m-0 p-0">
         <li class="page-item">
           <a class="page-link" @click="Previous">Previous</a>
         </li>
 
-        <li v-for="(page, index) in TotalPages" :key="index">
-          <a class="link page-link" @click="navigate(page)">{{ page }}</a>
+        <li v-for="(page, index) in TotalPages" :key="index" >
+          <a class="link page-link" :class="{ active: currentPage === page}" @click="navigate(page)">{{ page }}</a>
         </li>
 
         <li class="page-item">
@@ -34,7 +34,6 @@ export default {
     },
     navigate(page) {
       this.currentPage = page;
-      this.SavingRoute()
       this.EmitCurrentPage();
     },
     Previous() {
@@ -59,22 +58,25 @@ export default {
   watch: {
     currentPage() {
       this.SavingRoute();
-    },
-    $route(){
-      console.log(this.$route.query.page)
     }
   },
   created() {
     this.Calculating();
-    this.SavingRoute();
   },
 };
 </script>
 
 <style scoped>
 nav ul {
-  width: 753px;
   flex-wrap: wrap;
+}
+nav ul .active {
+background-color: #161b22;
+color: #fff;
+}
+body.dark nav ul .active {
+ background-color: #fff;
+ color: #161b22;
 }
 nav ul li a {
   color: #161b22;
