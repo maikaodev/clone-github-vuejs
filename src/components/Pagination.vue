@@ -21,12 +21,11 @@
 <script>
 export default {
   name: "Pagination",
-  props: { totalRepositories: Number, checkPage: Number },
+  props: { totalRepositories: Number },
   data() {
-    const savedCurrentPage = localStorage.getItem("currentPage");
     return {
       TotalPages: [],
-      currentPage: savedCurrentPage ? savedCurrentPage : 1,
+      currentPage: this.$route.query.page || 1
     };
   },
   methods: {
@@ -35,34 +34,39 @@ export default {
     },
     navigate(page) {
       this.currentPage = page;
-      this.$emit("navigate", this.currentPage);
+      this.SavingRoute()
+      this.EmitCurrentPage();
     },
     Previous() {
       if (this.currentPage > 1) {
         this.currentPage--;
       }
-      this.$emit("navigate", this.currentPage);
+      this.EmitCurrentPage();
     },
     Next() {
       if (this.currentPage < this.TotalPages) {
         this.currentPage++;
       }
-      this.$emit("navigate", this.currentPage);
+      this.EmitCurrentPage()
     },
-    validatingPage() {
-      const savedCurrentPage = localStorage.getItem("currentPage");
-      this.currentPage = savedCurrentPage;
+    SavingRoute() {
+      this.$router.replace({ query: { page: this.currentPage } });
+    },
+    EmitCurrentPage() {
       this.$emit("navigate", this.currentPage);
     },
   },
   watch: {
-    currentPage(val) {
-      localStorage.setItem("currentPage", val);
+    currentPage() {
+      this.SavingRoute();
     },
+    $route(){
+      console.log(this.$route.query.page)
+    }
   },
   created() {
     this.Calculating();
-    this.validatingPage();
+    this.SavingRoute();
   },
 };
 </script>
@@ -77,6 +81,8 @@ nav ul li a {
   background-color: #fff;
 
   border: 1px solid #161b22;
+
+  cursor: pointer;
 }
 body.dark nav ul li a {
   border: 1px solid #fff;
@@ -90,7 +96,5 @@ nav ul li a:hover {
 body.dark nav ul li a:hover {
   background-color: #344050;
   color: #fff;
-
-  cursor: pointer;
 }
 </style>

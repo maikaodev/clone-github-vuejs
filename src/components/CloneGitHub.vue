@@ -148,7 +148,6 @@
               <!-- MAIN-HEADER -->
               <Pagination
                 :totalRepositories="totalRepositories"
-                :checkPage="checkPage"
                 @navigate="geTinfo"
               />
             </main>
@@ -194,7 +193,7 @@ export default {
       following: String,
       totalRepositories: Number,
       repositories: [],
-      checkPage: Number,
+      pageF: Number
     };
   },
   methods: {
@@ -223,8 +222,8 @@ export default {
         .catch(() => {
           this.status = "error";
         });
-      this.checkPage = page;
-      const urlRepositories = `https://api.github.com/users/${this.gitUser}/repos?per_page=6&page=${page}`;
+        this.pageF = page || this.$route.query.page
+      const urlRepositories = `https://api.github.com/users/${this.gitUser}/repos?per_page=6&page=${this.pageF}`;
       await fetch(urlRepositories)
         .then((response) => response.json())
         .then((infoRepositories) => {
