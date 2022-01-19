@@ -77,6 +77,7 @@ export default {
     },
     currentTheme(val) {
       localStorage.setItem("currentTheme", val);
+      this.$vuetify.theme.dark = val === "Dark"
     },
   },
   created() {

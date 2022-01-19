@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <v-app>
     <div>
       <SocialLinks />
       <router-view></router-view>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script>
