@@ -53,7 +53,6 @@ export default {
     currentTheme(val) {
       localStorage.setItem("currentTheme", val);
       this.$vuetify.theme.dark = val === "dark";
-      this.setBodyClass();
     },
   },
   computed: {
@@ -63,7 +62,6 @@ export default {
   },
   created() {
     this.$vuetify.theme.dark = this.currentTheme === "dark";
-    this.setBodyClass();
   },
 };
 </script>
