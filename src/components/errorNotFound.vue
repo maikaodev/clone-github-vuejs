@@ -4,16 +4,16 @@
       class="container d-flex flex-column justify-content-center align-items-center"
     >
       <h1>error, user not found...</h1>
-      <v-btn elevation="2" class="primary secondary--text text-center" to="/">
-        Reset system clone
-      </v-btn>
+      <ButtonResetSystem />
     </div>
   </div>
 </template>
 
 <script>
+import ButtonResetSystem from "./ButtonResetSystem.vue";
 export default {
   name: "ErrorNotFound",
+  components: { ButtonResetSystem },
 };
 </script>
 <style scoped>
