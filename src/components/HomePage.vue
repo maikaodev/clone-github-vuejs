@@ -1,5 +1,5 @@
 <template>
-  <div class="container" id="Geral">
+  <div class="geral container">
     <header class="d-flex justify-content-center align-items-center">
       <!-- H1 -->
 
@@ -70,13 +70,17 @@ export default {
 </script>
 
 <style scoped>
+body .geral {
+  height: 100vh;
+  overflow: hidden;
+}
 body div.container {
   display: grid;
   grid-auto-rows: 150px;
   grid-template-areas:
     "header"
     "main";
-  height: 100%;
+  height: 100vh;
 }
 
 body div.container header {

@@ -18,12 +18,11 @@ export default {
 </script>
 <style scoped>
 div {
-  height: 80vh;
+  height: 95vh;
   margin: 0 auto;
 }
 div a {
   font-weight: bold;
-
   text-decoration: none;
 }
 </style>
