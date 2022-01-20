@@ -2,9 +2,10 @@
   <div class="text-center">
     <v-pagination
       v-model="page"
-      :length="length"
+      :length="TotalPages"
       :total-visible="6"
       circle
+      class=""
     ></v-pagination>
   </div>
 </template>
@@ -15,35 +16,35 @@ export default {
   props: { totalRepositories: Number },
   data() {
     return {
-      length: [],
-      page:Number,  
-      QueryParams: Number
+      TotalPages: [],
+      page: Number,
+      QueryParams: Number,
     };
   },
   methods: {
-    Calculating() {
-      this.length = Math.ceil(this.totalRepositories / 6);
+    calculatingTotalPages() {
+      this.TotalPages = Math.ceil(this.totalRepositories / 6);
     },
-    SavingRoute() {
+    savingRoute() {
       this.$router.replace({ query: { page: this.page } });
     },
-    EmitPage() {
+    emitPage() {
       this.$emit("navigate", this.page);
     },
-    ConvertTypeRoute(){
-        this.QueryParams =  this.$route.query.page
-        this.page =  Number(this.QueryParams) || 1
-    }
+    convertTypeRoute() {
+      this.QueryParams = this.$route.query.page;
+      this.page = Number(this.QueryParams) || 1;
+    },
   },
   watch: {
     page() {
-      this.EmitPage();
-      this.SavingRoute(); 
+      this.emitPage();
+      this.savingRoute();
     },
   },
   created() {
-    this.Calculating();
-    this.ConvertTypeRoute();
+    this.calculatingTotalPages();
+    this.convertTypeRoute();
   },
 };
 </script>
