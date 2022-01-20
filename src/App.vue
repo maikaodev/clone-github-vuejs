@@ -8,14 +8,14 @@
 </template>
 
 <script>
-import SocialLinks from './components/SocialLinks.vue'
+import SocialLinks from "./components/SocialLinks.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    SocialLinks
-  }
-}
+    SocialLinks,
+  },
+};
 </script>
 
 <style>
@@ -31,6 +31,7 @@ html,
 body {
   width: 100%;
 }
+/*
 body,
 body a,
 body i,
@@ -63,5 +64,5 @@ body.dark div.error button {
   color: #161b22;
   border: 2px solid #fff;
   font-weight: bold;
-}
+} */
 </style>
