@@ -28,7 +28,7 @@
       </ul>
     </div>
     <div class="d-flex justify-content-end">
-      <button class="btn" @click="changeTheme">
+      <button class="secondary primary--text btn" @click="changeTheme">
         <i :class="buttonIcon"></i>
       </button>
     </div>
