@@ -28,7 +28,7 @@
       </ul>
     </div>
     <div class="d-flex justify-content-end">
-      <button class="secondary primary--text btn" @click="changeTheme">
+      <button class="primary--text btn" @click="changeTheme">
         <i :class="buttonIcon"></i>
       </button>
     </div>
@@ -47,16 +47,6 @@ export default {
   methods: {
     changeTheme() {
       this.currentTheme = this.currentTheme === "light" ? "dark" : "light";
-    },
-    //TODO: remover após migração para o Vuetify.
-    setBodyClass() {
-      const getBody = document.querySelector("body");
-
-      if (this.currentTheme === "dark") {
-        getBody.classList.add("dark");
-      } else {
-        getBody.classList.remove("dark");
-      }
     },
   },
   watch: {
