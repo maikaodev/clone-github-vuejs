@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="error container d-flex flex-column justify-content-center align-items-center">
+    <div
+      class="container d-flex flex-column justify-content-center align-items-center"
+    >
       <h1>error 404, page not found...</h1>
-      <router-link class="text-center" to="/"
-        >Back to home page</router-link
-      >
+      <router-link class="text-center" to="/">Back to home page</router-link>
     </div>
   </div>
 </template>
@@ -17,25 +17,17 @@ export default {
 
 <style scoped>
 /* END FOOTER */
-.error {
+div {
   height: 80vh;
   margin: 0 auto;
 }
-.error a {
+div a {
   width: 200px;
   padding: 4px 8px;
 
   font-weight: bold;
 
-  background-color: #161b22;
-  color: #fff;
   border: 2px solid #161b22;
   text-decoration: none;
-}
-
-body.dark .error a {
-  background-color: #fff;
-  border: 2px solid #fff;
-  color: #161b22;
 }
 </style>
