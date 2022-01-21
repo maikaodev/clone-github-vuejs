@@ -5,7 +5,9 @@
       :length="TotalPages"
       :total-visible="6"
       circle
-      class=""
+      :dark="this.$vuetify.theme.isDark === false"
+      :light="this.$vuetify.theme.isDark === true"
+      color="blue"
     ></v-pagination>
   </div>
 </template>
@@ -45,6 +47,8 @@ export default {
   created() {
     this.calculatingTotalPages();
     this.convertTypeRoute();
+
+    // alert(this.$vuetify.theme.dark);
   },
 };
 </script>
