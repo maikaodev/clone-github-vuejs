@@ -1,12 +1,12 @@
 <template>
   <div>
     <!--ERROR USER -->
-    <ErrorNotFound v-if="this.status === 'error'" />
+    <UserNotFound v-if="this.status === 'error'" />
     <!--END ERROR USER -->
 
     <div v-if="this.status === 'success'">
-      <ErrorNotFound v-if="this.message === 'Not Found'" />
-      <ErrorNotFound v-else-if="this.name === null" />
+      <UserNotFound v-if="this.message === 'Not Found'" />
+      <UserNotFound v-else-if="this.name === null" />
       <div v-else>
         <div class="container d-flex flex-column p-0">
           <div id="container">
@@ -170,12 +170,12 @@
 </template>
 
 <script>
-import ErrorNotFound from "./errorNotFound.vue";
+import UserNotFound from "./UserNotFound.vue";
 import Pagination from "./Pagination.vue";
 import ButtonResetSystem from "./ButtonResetSystem.vue";
 export default {
   name: "CloneGitHub",
-  components: { ErrorNotFound, Pagination, ButtonResetSystem },
+  components: { UserNotFound, Pagination, ButtonResetSystem },
   data() {
     return {
       status: "loading",
