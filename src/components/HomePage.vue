@@ -81,7 +81,7 @@ export default {
 <style scoped>
 body div.container {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 150px;
   grid-template-areas:
     "header"
     "main";

@@ -1,10 +1,10 @@
 <template>
-  <div class="geral container-fluid">
+  <div class="geral container-fluid d-flex justify-space-between my-2">
     <!-- THEME BUTTON -->
 
     <div class="SocialLinks">
       <!-- END THEME BUTTON -->
-      <ul class="d-flex justify-content-between align-items-center p-0">
+      <ul class="d-flex justify-content-between align-items-center m-0 p-0">
         <li>
           <a href="https://www.linkedin.com/in/maikaodev/" target="_blank">
             <i class="fab fa-linkedin"></i>
@@ -28,7 +28,7 @@
       </ul>
     </div>
     <div class="d-flex justify-content-end">
-      <button class="primary--text btn" @click="changeTheme">
+      <button class="primary--text" @click="changeTheme">
         <i :class="buttonIcon"></i>
       </button>
     </div>
@@ -67,19 +67,10 @@ export default {
 </script>
 
 <style scoped>
-div.geral {
-  display: flex;
-  justify-content: space-between;
-  margin: 8px 0px;
-}
 div.SocialLinks ul {
   width: 160px;
-  margin: 0;
 }
 div.SocialLinks ul li a i {
   font-size: 32px;
-}
-.btn {
-  height: 32px;
 }
 </style>

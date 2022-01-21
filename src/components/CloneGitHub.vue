@@ -149,6 +149,7 @@
               <Pagination
                 :totalRepositories="totalRepositories"
                 @navigate="geTinfo"
+                v-show="this.totalRepositories"
               />
             </main>
           </div>
@@ -298,6 +299,7 @@ section .repositories {
 }
 .emptyRepositories {
   margin-top: 32px;
+  height: 542px;
 }
 section .repositories li {
   border-bottom: 1px solid rgb(59, 67, 78);
@@ -309,7 +311,9 @@ section .repositories li {
 
 /* FOOTER */
 footer {
-  margin-top: 13px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
 }
 /* END FOOTER */
 
@@ -362,6 +366,11 @@ footer {
   }
   main {
     width: 60%;
+  }
+}
+@media (max-width: 426px) {
+  .emptyRepositories {
+    height: 135px;
   }
 }
 </style>

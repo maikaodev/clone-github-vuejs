@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <div
-      class="container d-flex flex-column justify-content-center align-items-center"
-    >
-      <h1>error 404, page not found...</h1>
+  <div
+    class="container d-flex flex-column justify-content-center align-items-center"
+  >
+    <h1>Page not found</h1>
 
-      <v-btn class="primary secondary--text text-center" to="/"
-        >Back to home page</v-btn
-      >
-    </div>
+    <v-btn class="primary secondary--text text-center" to="/"
+      >Back to home page</v-btn
+    >
   </div>
 </template>
 
@@ -21,8 +19,8 @@ export default {
 <style scoped>
 /* END FOOTER */
 div {
-  height: 100vh;
-  margin: 0 auto;
+  margin: auto;
+  height: 80vh;
 }
 div a {
   font-weight: bold;

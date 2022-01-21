@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <div
-      class="container d-flex flex-column justify-content-center align-items-center"
-    >
-      <h1>User not found</h1>
-      <ButtonResetSystem />
-    </div>
+  <div
+    class="container d-flex flex-column justify-content-center align-items-center"
+  >
+    <h1>User not found</h1>
+    <ButtonResetSystem />
   </div>
 </template>
 
@@ -17,9 +15,9 @@ export default {
 };
 </script>
 <style scoped>
-div {
-  height: 95vh;
+.container {
   margin: 0 auto;
+  height: 80vh;
 }
 div a {
   font-weight: bold;
