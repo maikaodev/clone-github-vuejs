@@ -1,41 +1,28 @@
 <template>
   <div>
     <div
-      class="error container d-flex flex-column justify-content-center align-items-center"
+      class="container d-flex flex-column justify-content-center align-items-center"
     >
       <h1>error, user not found...</h1>
-      <router-link class="text-center" to="/"> Reset system clone </router-link>
+      <ButtonResetSystem />
     </div>
   </div>
 </template>
 
 <script>
+import ButtonResetSystem from "./ButtonResetSystem.vue";
 export default {
-  name: 'ErrorNotFound'
-}
+  name: "ErrorNotFound",
+  components: { ButtonResetSystem },
+};
 </script>
 <style scoped>
-/* END FOOTER */
-.error {
-  height: 80vh;
+div {
+  height: 95vh;
   margin: 0 auto;
 }
-.error a {
-  width: 200px;
-  padding: 4px 8px;
-
+div a {
   font-weight: bold;
-
-  background-color: #161b22;
-  color: #fff;
-  border: 2px solid #161b22;
   text-decoration: none;
 }
-
-body.dark .error a {
-  background-color: #fff;
-  border: 2px solid #fff;
-  color: #161b22;
-}
-
 </style>

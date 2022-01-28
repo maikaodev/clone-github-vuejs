@@ -1,5 +1,5 @@
 <template>
-  <div class="container" id="Geral">
+  <div class="geral container">
     <header class="d-flex justify-content-center align-items-center">
       <!-- H1 -->
 
@@ -43,40 +43,44 @@
 
 <script>
 export default {
-  name: 'HomePage',
+  name: "HomePage",
   data() {
     return {
-      user: ''
-    }
+      user: "",
+    };
   },
   computed: {
     link() {
-      return `/clone/${this.user}`
-    }
+      return `/clone/${this.user}`;
+    },
   },
   watch: {
     user(val) {
-      const buttonRun = document.getElementById('button-run')
-      if (val === '') {
-        buttonRun.classList.add('disabled')
-        buttonRun.setAttribute('tabindex', -1)
+      const buttonRun = document.getElementById("button-run");
+      if (val === "") {
+        buttonRun.classList.add("disabled");
+        buttonRun.setAttribute("tabindex", -1);
       } else {
-        buttonRun.classList.remove('disabled')
-        buttonRun.setAttribute('tabindex', 0)
+        buttonRun.classList.remove("disabled");
+        buttonRun.setAttribute("tabindex", 0);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
+body .geral {
+  height: 100vh;
+  overflow: hidden;
+}
 body div.container {
   display: grid;
   grid-auto-rows: 150px;
   grid-template-areas:
-    'header'
-    'main';
-  height: 100%;
+    "header"
+    "main";
+  height: 100vh;
 }
 
 body div.container header {
@@ -88,19 +92,10 @@ body div.container main {
 body div.container main div.input-group input,
 body div.container main div.input-group a {
   height: 50px;
-  border: 2px solid #161b22;
   border-radius: 6px;
-}
-body.dark div.container main div.input-group input,
-body.dark div.container main div.input-group a {
-  border: 2px solid #fff;
 }
 body div.container main div.input-group a {
   font-weight: bold;
-  color: #161b22;
-}
-body.dark div.container main div.input-group a {
-  color: #fff;
 }
 
 @media (min-width: 320px) {

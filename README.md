@@ -16,3 +16,4 @@ https://clone-github-vuejs-maikaodev.netlify.app/
 - [x] Manter o botão run desabilitado enquanto não estiver algo para inserido no input.
 - [x] Adicionar components para rotas não encontradas(Transformar o error em component e chamar ele no clone e em notFound).
 - [ ] Promise.all() - Faz com que minhas requisições ocorra de forma simultânea.
+- [ ] Limitar a quantidade de número de páginas para não quebrar layout.

@@ -8,7 +8,7 @@
       <ErrorNotFound v-if="this.message === 'Not Found'" />
       <ErrorNotFound v-else-if="this.name === null" />
       <div v-else>
-        <div class="container d-flex flex-column">
+        <div class="container d-flex flex-column p-0">
           <div id="container">
             <!-- HEADER -->
             <header class="container d-flex flex-column">
@@ -115,7 +115,10 @@
                   />
                 </div>
                 <!-- Repositories -->
-                <h1 v-if="this.totalRepositories === 0" class="noReposiories">
+                <h1
+                  v-if="this.totalRepositories === 0"
+                  class="emptyRepositories"
+                >
                   The aren't repositories...
                 </h1>
 
@@ -143,13 +146,17 @@
                 <!-- End Repositories -->
               </section>
               <!-- MAIN-HEADER -->
+              <Pagination
+                :totalRepositories="totalRepositories"
+                @navigate="geTinfo"
+              />
             </main>
           </div>
 
           <!--END MAIN -->
         </div>
         <footer class="text-center">
-          <router-link to="/"> Reset system clone </router-link>
+          <ButtonResetSystem />
         </footer>
       </div>
     </div>
@@ -164,10 +171,11 @@
 
 <script>
 import ErrorNotFound from "./errorNotFound.vue";
-
+import Pagination from "./Pagination.vue";
+import ButtonResetSystem from "./ButtonResetSystem.vue";
 export default {
   name: "CloneGitHub",
-  components: { ErrorNotFound },
+  components: { ErrorNotFound, Pagination, ButtonResetSystem },
   data() {
     return {
       status: "loading",
@@ -183,12 +191,13 @@ export default {
       blog: String,
       followers: String,
       following: String,
-      totalRepositories: null,
+      totalRepositories: Number,
       repositories: [],
+      pageF: Number,
     };
   },
   methods: {
-    async geTinfo() {
+    async geTinfo(page) {
       this.gitUser = this.$route.params.id || this.user;
 
       const url = `https://api.github.com/users/${this.gitUser}`;
@@ -206,15 +215,15 @@ export default {
           this.blog = infoGit.blog;
           this.followers = infoGit.followers;
           this.following = infoGit.following;
-          this.totalRepositories = infoGit.public_repos
+          this.totalRepositories = infoGit.public_repos;
           this.message = infoGit.message;
           this.status = "success";
         })
         .catch(() => {
           this.status = "error";
         });
-
-      const urlRepositories = `https://api.github.com/users/${this.gitUser}/repos`;
+      this.pageF = page || this.$route.query.page;
+      const urlRepositories = `https://api.github.com/users/${this.gitUser}/repos?per_page=6&page=${this.pageF}`;
       await fetch(urlRepositories)
         .then((response) => response.json())
         .then((infoRepositories) => {
@@ -273,9 +282,6 @@ header .description p {
 .followers a:hover {
   color: #222;
 }
-body.dark .followers a:hover {
-  color: #fff;
-}
 .followers ul {
   padding: 0;
 }
@@ -288,8 +294,9 @@ body.dark .followers a:hover {
 section .repositories {
   padding: 0;
   margin-top: 24px;
+  height: 500px;
 }
-.noReposiories{
+.emptyRepositories {
   margin-top: 32px;
 }
 section .repositories li {
@@ -302,23 +309,9 @@ section .repositories li {
 
 /* FOOTER */
 footer {
-  margin-top: 40px;
-  
+  margin-top: 13px;
 }
-footer a {
-  background-color: #161b22;
-  color: #fff;
-  border: 2px solid #161b22;
-  border-radius: 4px;
-
-  text-decoration: none;
-
-  padding: 8px 40px;
-}
-body.dark footer a {
-  background-color: #fff;
-  color: #161b22;
-}
+/* END FOOTER */
 
 /* LOADING   */
 .loading {
@@ -333,6 +326,11 @@ body.dark footer a {
 @media (max-width: 425px) {
   footer button {
     width: 250px;
+  }
+  section .repositories {
+    padding: 0;
+    margin-top: 24px;
+    height: 525px;
   }
 }
 
