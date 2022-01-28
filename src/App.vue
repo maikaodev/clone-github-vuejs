@@ -28,7 +28,8 @@ export default {
   list-style-type: none;
 }
 html,
-body {
+body,
+.secondary {
   width: 100%;
   height: 100%;
 }

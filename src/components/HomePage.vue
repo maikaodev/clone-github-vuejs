@@ -1,5 +1,5 @@
 <template>
-  <div class="geral container">
+  <div class="geral container overflow-hidden">
     <header class="d-flex justify-content-center align-items-center">
       <!-- H1 -->
 
@@ -16,11 +16,13 @@
         <div class="input-group">
           <input
             type="text"
+            id="inputText"
             class="form-control"
             placeholder="username"
             aria-label="Recipient's username"
             aria-describedby="button-addon2"
             v-model="user"
+            @keypress.enter="goToClone"
           />
           <router-link
             id="button-run"
@@ -49,6 +51,13 @@ export default {
       user: "",
     };
   },
+  methods: {
+    goToClone() {
+      if (this.user !== "") {
+        this.$router.push(this.link);
+      }
+    },
+  },
   computed: {
     link() {
       return `/clone/${this.user}`;
@@ -70,17 +79,12 @@ export default {
 </script>
 
 <style scoped>
-body .geral {
-  height: 100vh;
-  overflow: hidden;
-}
 body div.container {
   display: grid;
-  grid-auto-rows: 150px;
+  grid-template-rows: 150px;
   grid-template-areas:
     "header"
     "main";
-  height: 100vh;
 }
 
 body div.container header {
@@ -91,17 +95,17 @@ body div.container main {
 }
 body div.container main div.input-group input,
 body div.container main div.input-group a {
-  height: 50px;
+  height: 48px;
   border-radius: 6px;
 }
 body div.container main div.input-group a {
   font-weight: bold;
 }
 
+/* MEDIA QUERIE */
 @media (min-width: 320px) {
   header h1 {
     text-align: center;
   }
 }
-/* MEDIA QUERIE */
 </style>
