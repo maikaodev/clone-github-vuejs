@@ -8,7 +8,7 @@
       <ErrorNotFound v-if="this.message === 'Not Found'" />
       <ErrorNotFound v-else-if="this.name === null" />
       <div v-else>
-        <div class="container d-flex flex-column">
+        <div class="container d-flex flex-column p-0">
           <div id="container">
             <!-- HEADER -->
             <header class="container d-flex flex-column">
@@ -156,7 +156,7 @@
           <!--END MAIN -->
         </div>
         <footer class="text-center">
-          <router-link to="/"> Reset system clone </router-link>
+          <ButtonResetSystem />
         </footer>
       </div>
     </div>
@@ -172,10 +172,10 @@
 <script>
 import ErrorNotFound from "./errorNotFound.vue";
 import Pagination from "./Pagination.vue";
-
+import ButtonResetSystem from "./ButtonResetSystem.vue";
 export default {
   name: "CloneGitHub",
-  components: { ErrorNotFound, Pagination },
+  components: { ErrorNotFound, Pagination, ButtonResetSystem },
   data() {
     return {
       status: "loading",
@@ -193,7 +193,7 @@ export default {
       following: String,
       totalRepositories: Number,
       repositories: [],
-      pageF: Number
+      pageF: Number,
     };
   },
   methods: {
@@ -222,7 +222,7 @@ export default {
         .catch(() => {
           this.status = "error";
         });
-        this.pageF = page || this.$route.query.page
+      this.pageF = page || this.$route.query.page;
       const urlRepositories = `https://api.github.com/users/${this.gitUser}/repos?per_page=6&page=${this.pageF}`;
       await fetch(urlRepositories)
         .then((response) => response.json())
@@ -282,9 +282,6 @@ header .description p {
 .followers a:hover {
   color: #222;
 }
-body.dark .followers a:hover {
-  color: #fff;
-}
 .followers ul {
   padding: 0;
 }
@@ -312,22 +309,9 @@ section .repositories li {
 
 /* FOOTER */
 footer {
-  margin-top: 40px;
+  margin-top: 13px;
 }
-footer a {
-  background-color: #161b22;
-  color: #fff;
-  border: 2px solid #161b22;
-  border-radius: 4px;
-
-  text-decoration: none;
-
-  padding: 8px 40px;
-}
-body.dark footer a {
-  background-color: #fff;
-  color: #161b22;
-}
+/* END FOOTER */
 
 /* LOADING   */
 .loading {
@@ -342,6 +326,11 @@ body.dark footer a {
 @media (max-width: 425px) {
   footer button {
     width: 250px;
+  }
+  section .repositories {
+    padding: 0;
+    margin-top: 24px;
+    height: 525px;
   }
 }
 

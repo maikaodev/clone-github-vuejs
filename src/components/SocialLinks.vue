@@ -28,7 +28,9 @@
       </ul>
     </div>
     <div class="d-flex justify-content-end">
-      <button class="btn" v-html="buttonTheme" @click="changeTheme"></button>
+      <button class="primary--text btn" @click="changeTheme">
+        <i :class="buttonIcon"></i>
+      </button>
     </div>
   </div>
 </template>
@@ -37,59 +39,34 @@
 export default {
   name: "SocialLinks",
   data() {
-    const savedButtonTheme = localStorage.getItem("buttonTheme");
     const savedCurrentTheme = localStorage.getItem("currentTheme");
-
     return {
-      buttonTheme: savedButtonTheme
-        ? savedButtonTheme
-        : '<i class="fas fa-moon"></i>',
-      currentTheme: savedCurrentTheme ? savedCurrentTheme : "default",
+      currentTheme: (savedCurrentTheme || "light").toLowerCase(),
     };
   },
   methods: {
     changeTheme() {
-      const darkTheme = '<i class="fas fa-moon"></i>';
-      const lightTheme = '<i class="far fa-moon"></i>';
-
-      if (this.buttonTheme === darkTheme) {
-        this.buttonTheme = lightTheme;
-        this.currentTheme = "Dark";
-      } else {
-        this.buttonTheme = darkTheme;
-        this.currentTheme = "Light";
-      }
-    },
-    validatingClass() {
-      const getBody = document.getElementById("body");
-
-      if (this.currentTheme === "Dark") {
-        getBody.classList.toggle("dark");
-      } else {
-        getBody.classList.remove("dark");
-      }
+      this.currentTheme = this.currentTheme === "light" ? "dark" : "light";
     },
   },
   watch: {
-    buttonTheme(val) {
-      localStorage.setItem("buttonTheme", val);
-      this.validatingClass();
-    },
     currentTheme(val) {
       localStorage.setItem("currentTheme", val);
-      this.$vuetify.theme.dark = val === "Dark"
+      this.$vuetify.theme.dark = val === "dark";
+    },
+  },
+  computed: {
+    buttonIcon() {
+      return this.currentTheme === "light" ? "fas fa-moon" : "far fa-moon";
     },
   },
   created() {
-    this.validatingClass();
+    this.$vuetify.theme.dark = this.currentTheme === "dark";
   },
 };
 </script>
 
 <style scoped>
-* {
-  color: #222;
-}
 div.geral {
   display: flex;
   justify-content: space-between;
