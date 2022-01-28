@@ -312,8 +312,6 @@ section .repositories li {
 /* FOOTER */
 footer {
   margin-top: 12px;
-  display: flex;
-  flex-direction: column;
 }
 /* END FOOTER */
 
@@ -328,9 +326,6 @@ footer {
 
 /* MEDIA QUERIES */
 @media (max-width: 425px) {
-  footer button {
-    width: 250px;
-  }
   section .repositories {
     padding: 0;
     margin-top: 24px;
