@@ -1,6 +1,6 @@
 <template>
   <v-btn elevation="2" class="primary secondary--text text-center" to="/">
-    Reset system clone
+    Back to home page
   </v-btn>
 </template>
 

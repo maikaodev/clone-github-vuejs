@@ -5,9 +5,9 @@
     <!--END ERROR USER -->
 
     <div v-if="this.status === 'success'">
-      <UserNotFound v-if="this.message === 'Not Found'" />
-      <UserNotFound v-else-if="this.name === null" />
-      <div v-else>
+      <!-- <UserNotFound v-if="this.message === 'Not Found'" /> -->
+      <!-- <UserNotFound v-else-if="this.name === null" /> -->
+      <div>
         <div class="container d-flex flex-column p-0">
           <div id="container">
             <!-- HEADER -->
@@ -174,6 +174,7 @@
 import UserNotFound from "./UserNotFound.vue";
 import Pagination from "./Pagination.vue";
 import ButtonResetSystem from "./ButtonResetSystem.vue";
+
 export default {
   name: "CloneGitHub",
   components: { UserNotFound, Pagination, ButtonResetSystem },
@@ -181,7 +182,6 @@ export default {
     return {
       status: "loading",
       gitUser: String,
-      message: String,
       avatar: null,
       bio: String,
       name: String,
@@ -194,49 +194,62 @@ export default {
       following: String,
       totalRepositories: Number,
       repositories: [],
-      pageF: Number,
+      $page: Number,
     };
   },
   methods: {
-    async geTinfo(page) {
+    geTinfo(page) {
+      //User
       this.gitUser = this.$route.params.id || this.user;
+      //Repositories
+      this.$page = page || this.$route.query.page;
 
-      const url = `https://api.github.com/users/${this.gitUser}`;
+      //User
+      const url = fetch(`https://api.github.com/users/${this.gitUser}`).then(
+        (res) => res.json()
+      );
 
-      await fetch(url)
-        .then((response) => response.json())
-        .then((infoGit) => {
-          this.avatar = infoGit.avatar_url;
-          this.bio = infoGit.bio;
-          this.name = infoGit.name;
-          this.nickname = infoGit.login;
-          this.company = infoGit.company;
-          this.location = infoGit.location;
-          this.twitter = infoGit.twitter_username;
-          this.blog = infoGit.blog;
-          this.followers = infoGit.followers;
-          this.following = infoGit.following;
-          this.totalRepositories = infoGit.public_repos;
-          this.message = infoGit.message;
+      //Repositories
+      const urlRepositories = fetch(
+        `https://api.github.com/users/${this.gitUser}/repos?per_page=6&page=${this.$page}`
+      ).then((res) => res.json());
+
+      try {
+        const allData = Promise.all([url, urlRepositories]);
+        allData.then((response) => {
+          if (response[0].message === "Not Found") {
+            this.status = "error";
+            throw new Error("Not Found");
+          } else {
+            this.avatar = response[0].avatar_url;
+            this.bio = response[0].bio;
+            this.name = response[0].name;
+            this.nickname = response[0].login;
+            this.company = response[0].company;
+            this.location = response[0].location;
+            this.twitter = response[0].twitter_username;
+            this.blog = response[0].blog;
+            this.followers = response[0].followers;
+            this.following = response[0].following;
+            this.totalRepositories = response[0].public_repos;
+            this.repositories = response[1];
+          }
           this.status = "success";
-        })
-        .catch(() => {
-          this.status = "error";
         });
-      this.pageF = page || this.$route.query.page;
-      const urlRepositories = `https://api.github.com/users/${this.gitUser}/repos?per_page=6&page=${this.pageF}`;
-      await fetch(urlRepositories)
-        .then((response) => response.json())
-        .then((infoRepositories) => {
-          this.repositories = infoRepositories;
-        })
-        .catch(() => {
-          this.status = "error";
-        });
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
   created() {
     this.geTinfo();
+  },
+  watch: {
+    name(val) {
+      if (val === null) {
+        this.status = "error";
+      }
+    },
   },
 };
 </script>

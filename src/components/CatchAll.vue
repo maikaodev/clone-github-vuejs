@@ -3,21 +3,21 @@
     class="container d-flex flex-column justify-content-center align-items-center"
   >
     <h1>Page not found</h1>
-
-    <v-btn class="primary secondary--text text-center" to="/"
-      >Back to home page</v-btn
-    >
+    <ButtonResetSystem />
   </div>
 </template>
 
 <script>
+import ButtonResetSystem from "./ButtonResetSystem.vue";
 export default {
   name: "CatchAll",
+  components: {
+    ButtonResetSystem,
+  },
 };
 </script>
 
 <style scoped>
-/* END FOOTER */
 div {
   margin: auto;
   height: 80vh;
