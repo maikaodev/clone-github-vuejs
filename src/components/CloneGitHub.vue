@@ -174,6 +174,7 @@
 import UserNotFound from "./UserNotFound.vue";
 import Pagination from "./Pagination.vue";
 import ButtonResetSystem from "./ButtonResetSystem.vue";
+
 export default {
   name: "CloneGitHub",
   components: { UserNotFound, Pagination, ButtonResetSystem },
@@ -197,7 +198,7 @@ export default {
     };
   },
   methods: {
-    async geTinfo(page) {
+    geTinfo(page) {
       //User
       this.gitUser = this.$route.params.id || this.user;
       //Repositories
@@ -216,7 +217,6 @@ export default {
       try {
         const allData = Promise.all([url, urlRepositories]);
         allData.then((response) => {
-          console.log(response);
           if (response[0].message === "Not Found") {
             this.status = "error";
             throw new Error("Not Found");
@@ -237,7 +237,6 @@ export default {
           this.status = "success";
         });
       } catch (err) {
-        //TODO -> Passar o Error como parâmetro para o component exibir a mensagem
         console.log(err);
       }
     },

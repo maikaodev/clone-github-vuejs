@@ -47,8 +47,6 @@ export default {
   created() {
     this.calculatingTotalPages();
     this.convertTypeRoute();
-
-    // alert(this.$vuetify.theme.dark);
   },
 };
 </script>
