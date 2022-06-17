@@ -17,7 +17,6 @@ export default {
 </script>
 
 <style scoped>
-/* END FOOTER */
 div {
   margin: auto;
   height: 80vh;
