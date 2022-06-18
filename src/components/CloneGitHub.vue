@@ -93,6 +93,16 @@
               <section class="container text-center">
                 <h2>Repositories {{ totalRepositories }}</h2>
 
+                <div class="input-group mb-2">
+                  <input
+                    id="input_text"
+                    type="text"
+                    class="form-control"
+                    placeholder="Find a repository..."
+                    aria-label="Recipient's username"
+                    disabled
+                  />
+                </div>
                 <!-- Repositories -->
                 <h1
                   v-if="this.totalRepositories === 0"
@@ -277,6 +287,9 @@ section .repositories {
   padding: 0;
   margin-top: 24px;
   height: 500px;
+}
+#input_text {
+  cursor: not-allowed;
 }
 .emptyRepositories {
   margin-top: 32px;
