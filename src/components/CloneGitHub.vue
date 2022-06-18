@@ -93,14 +93,6 @@
               <section class="container text-center">
                 <h2>Repositories {{ totalRepositories }}</h2>
 
-                <div class="input-group mb-2">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Find a repository..."
-                    aria-label="Recipient's username"
-                  />
-                </div>
                 <!-- Repositories -->
                 <h1
                   v-if="this.totalRepositories === 0"
