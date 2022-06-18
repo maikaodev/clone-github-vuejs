@@ -7,30 +7,17 @@
     <div v-if="this.status === 'success'">
       <!-- <UserNotFound v-if="this.message === 'Not Found'" /> -->
       <!-- <UserNotFound v-else-if="this.name === null" /> -->
-      <div>
-        <div class="container d-flex flex-column p-0">
+      <div id="geral">
+        <div class="d-flex flex-column p-0">
           <div id="container">
             <!-- HEADER -->
             <header class="container d-flex flex-column">
-              <!-- Icon github -->
-              <div
-                class="GitHubHome d-flex justify-content-between align-items-center mt-2"
-              >
-                <button>
-                  <i class="fas fa-bars"></i>
-                </button>
-                <a href="#">
-                  <i class="fab fa-github"></i>
-                </a>
-                <i class="alerts far fa-bell"></i>
-              </div>
-
-              <!-- End Icon github -->
-
               <!-- InfoUser Header -->
 
-              <div class="perfil d-flex align-items-center mt-3">
-                <img :src="avatar" alt="userPhoto" class="me-3" />
+              <div class="perfil">
+                <div>
+                  <img :src="avatar" alt="userPhoto" class="me-3" />
+                </div>
                 <div class="infoHeader">
                   <h1>{{ name }}</h1>
                   <span>{{ nickname }}</span>
@@ -41,7 +28,7 @@
 
               <!-- Bio -->
               <div class="bio d-flex flex-column">
-                <span v-show="this.bio != String" class="mt-3 mb-3">
+                <span class="mt-3 mb-3">
                   {{ bio }}
                 </span>
               </div>
@@ -50,30 +37,30 @@
 
               <!-- Followers and Description -->
 
-              <div class="container followers">
-                <div class="description d-flex flex-column text-left">
+              <div class="followers">
+                <div class="description">
                   <!-- DESCRIPTION -->
                   <section>
                     <ul>
                       <li v-show="this.company">
                         <i class="fas fa-building"></i>
-                        {{ company }}
+                        <span>{{ company }}</span>
                       </li>
 
                       <li v-show="this.location">
                         <i class="fas fa-map-marker-alt"></i>
-                        {{ location }}
+                        <span> {{ location }}</span>
                       </li>
 
-                      <p v-show="this.twitter">
+                      <li v-show="this.twitter">
                         <i class="fab fa-twitter"></i>
-                        @ {{ twitter }}
-                      </p>
+                        <span>@{{ twitter }}</span>
+                      </li>
 
                       <li v-show="this.blog">
                         <a :href="blog" target="_blank">
                           <i class="fas fa-link"></i>
-                          {{ blog }}
+                          <span id="blog">{{ blog }}</span>
                         </a>
                       </li>
                     </ul>
@@ -119,7 +106,7 @@
                   v-if="this.totalRepositories === 0"
                   class="emptyRepositories"
                 >
-                  The aren't repositories...
+                  No repository...
                 </h1>
 
                 <ul v-else class="repositories">
@@ -253,58 +240,47 @@ export default {
   },
 };
 </script>
-
 <style scoped>
+#geral {
+  width: 100vw;
+}
+
 /* HEADER */
-header {
+
+div .perfil {
+  display: flex;
   align-items: center;
 }
 header .perfil h1 {
   margin: 0;
 }
-div.GitHubHome {
-  width: 100%;
-  font-size: 24px;
-}
-
-div.GitHubHome button {
-  background: none;
-  border: none;
-}
 div.perfil img {
-  height: 50px;
+  height: 60px;
   border-radius: 50%;
   border: 2px solid rgb(59, 67, 78);
   object-fit: contain;
 }
-div.infoHeader span {
-  font-weight: 400;
+.description section ul li i {
+  font-size: 16px;
+  margin-right: 6px;
 }
-header .description {
-  margin-bottom: 8px;
+.description ul li #blog {
+  font-size: 14px;
 }
-header .description p {
-  margin: 0;
-}
+
 /*END HEADER */
-.followers {
-  padding: 0;
-}
-.followers a {
-  text-decoration: none;
-}
-.followers a:hover {
-  color: #222;
-}
+.followers,
 .followers ul {
   padding: 0;
 }
 .followers ul li {
   margin-right: 8px;
 }
+.followers a {
+  text-decoration: none;
+}
 
 /* MAIN */
-
 section .repositories {
   padding: 0;
   margin-top: 24px;
@@ -336,49 +312,42 @@ footer {
   width: 50px;
   height: 50px;
 }
-
 /* MEDIA QUERIES */
-@media (max-width: 425px) {
-  section .repositories {
-    padding: 0;
-    margin-top: 24px;
-    height: 525px;
-  }
-}
-
-@media (min-width: 768px) {
-  #container {
-    width: 100%;
-
-    display: flex;
-    justify-content: space-between;
-  }
-  header {
-    width: 40%;
-    margin: 8px 0;
-    align-items: start;
-  }
-  div.GitHubHome button,
-  div.GitHubHome a,
-  div.GitHubHome i {
-    display: none;
-  }
-  div.perfil {
-    flex-direction: column;
-  }
-  div.perfil img {
-    height: 250px;
-  }
-  div.followers ul li:nth-child(3) {
-    display: none;
-  }
-  main {
-    width: 60%;
+@media (max-width: 374px) {
+  .description #blog {
+    font-size: 16px;
   }
 }
 @media (max-width: 426px) {
   .emptyRepositories {
     height: 135px;
+  }
+}
+@media (min-width: 767px) {
+  div.perfil {
+    flex-direction: column;
+    align-items: start;
+  }
+  div.perfil img {
+    height: 250px;
+  }
+  #container {
+    width: 90vw;
+    display: flex;
+    margin: 0 auto;
+  }
+  header {
+    width: 40vw;
+    margin-top: 30px;
+  }
+
+  main {
+    width: 60vw;
+  }
+}
+@media (min-width: 1023px) {
+  header .bio {
+    width: 300px;
   }
 }
 </style>
