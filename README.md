@@ -2,7 +2,7 @@
 
 ## LINK - Deploy
 
-https://clone-github-vuejs-maikaodev.netlify.app/
+https://clone-github-maikaodev.netlify.app/
 
 ## LinkedIn
 
